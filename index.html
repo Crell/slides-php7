@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>PHP 7: The New New PHP</title>
+  <meta name="author" content="Larry Garfield">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="palantir-reveal/palantirnet-theme/assets/css/styles.css" id="theme">
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'palantirnet-theme/assets/css/print/pdf.css' : 'palantirnet-theme/assets/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="lib/js/html5shiv.js"></script>
+  <![endif]-->
+
+  <style type="text/css">
+
+    .reveal img.graphic {
+      width: 100%;
+      border-radius: 5px;
+    }
+
+    img.screenshot {
+      border-radius: 5px;
+      width: 800px;
+    }
+
+    ul.inline {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      text-align: center;
+    }
+
+    ul.inline li {
+      display: inline;
+    }
+  </style>
+
+</head>
+<!-- Change body class to "dark" if you prefer a dark theme, or "light" if you'd rather have a light theme-->
+<body class="light">
+<div class="reveal">
+  <div class="logo">
+    <p>Palantir.net</p>
+  </div>
+  <!-- Any section element inside of this container is displayed as a slide -->
+  <div class="slides">
+
+        <section>
+          <h1>PHP 7</h1>
+          <h2>The New New PHP</h2>
+          <p>
+            <small>Presented by <a href="http://www.garfieldtech.com/">Larry Garfield</a> (<a href="http://twitter.com/Crell">@Crell</a>)</small>
+          </p>
+        </section>
+        <section class="l-2up">
+          <h2><a href="http://twitter.com/Crell">@Crell</a></h2>
+          <div>
+            <img src="assets/larry-olaf-hug.jpg" alt="Larry implements Huggable" style="width: 350px; margin: 0" />
+          </div>
+          <div>
+            <ul style="text-wrap: none">
+              <li>Senior Architect, <a href="http://www.palantir.net/">Palantir.net</a></li>
+              <li style="margin-top: 1em;">Drupal 8 Web Services Lead</li>
+              <li style="margin-top: 1em;">Drupal Representative, <a href="http://www.php-fig.org/">PHP-FIG</a></li>
+              <li style="margin-top: 1em;"><code>implements Huggable</code></li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="final">
+          <h2>Larry Garfield</h2>
+          <p>Senior Architect, <a href="http://www.palantir.net/">Palantir.net</a></p>
+          <p>Let's Make Something Good Together.</p>
+          <p>Keep tabs on our work at <a href="http://twitter.com/Palantir">@Palantir</a></p>
+        </section>
+
+  </div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+
+  // Full list of configuration options available at:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+
+    transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+    // Optional reveal.js plugins
+    dependencies: [
+      { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: 'plugin/zoom-js/zoom.js', async: true },
+      { src: 'plugin/notes/notes.js', async: true }
+    ]
+  });
+
+</script>
+
+</body>
+</html>
