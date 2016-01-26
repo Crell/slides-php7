@@ -103,61 +103,9 @@
       </section>
     </section>
     <section>
-      <!-- Expectations -->
-      <section>
-        <h1>#3</h1>
-      </section>
-      <section>
-        <p class="bigtext">Assertions suck</p>
-        <pre class="font--16"><code class="php" data-trim>
-function doStuff($def) {
-  assert(is_array($def) && isset($def['key']) && isset($def['value']), 'Invalid def');
-  // ...
-}
-        </code></pre>
-        <div class="fragment">
-          <pre class="font--16"><code class="php" data-trim>
-function doStuff($def) {
-  assert('is_array($def) && isset($def[\'key\']) && isset($def[\'value\'])', 'Invalid def');
-  // ...
-}
-          </code></pre>
-        </div>
-        <aside class="notes">
-          <ul>
-            <li>Only in development, disable on prod</li>
-            <li>assert() is func, code always executes</li>
-            <li>String gets eval()ed.</li>
-          </ul>
-        </aside>
-      </section>
-      <section>
-        <pre class="font--16"><code class="php" data-trim>
-ini_set('assert.exception', 1);
-ini_set('zend.assertions', 1);
-
-class InvalidDefStruct extends AssertionError {}
-
-function doStuff(array $def) {
-  assert(isset($def['key']) && isset($def['value']), new InvalidDefStruct('Invalid def'));
-  // ...
-}
-        </code></pre>
-        <p class="fragment bigtext">Assertions are actually not-broken!</p>
-        <aside class="notes">
-          <ul>
-            <li>assert() now language construct</li>
-            <li>Smart now.</li>
-            <li>Note AssertionError, not AssertionException</li>
-            <li>Still disable in production</li>
-          </ul>
-        </aside>
-      </section>
-    </section>
-    <section>
       <!-- Spaceship -->
       <section>
-        <h1>#4</h1>
+        <h1>#3</h1>
       </section>
       <section>
         <pre class="font--16"><code class="php" data-trim>
@@ -232,7 +180,7 @@ usort($people, function (Person $a, Person $b) {
     <section>
       <!-- Null coalesce -->
       <section>
-        <h1>#5</h1>
+        <h1>#4</h1>
       </section>
       <section>
         <pre class="font--16"><code class="php" data-trim>
@@ -261,7 +209,7 @@ $username = $submitted['username'] ?? $user->username() ?? 'Anonymous';
     <section>
       <!-- CSPRING -->
       <section>
-        <h1>#6</h1>
+        <h1>#5</h1>
       </section>
       <section>
         <p class="bigtext">Cryptography is hard</p>
@@ -319,13 +267,13 @@ $username = $submitted['username'] ?? $user->username() ?? 'Anonymous';
     <section>
       <!-- Anonymous classes -->
       <section>
-        <h1>#7</h1>
+        <h1>#6</h1>
       </section>
     </section>
     <section>
       <!-- Engine exceptions / Errors -->
       <section>
-        <h1>#8</h1>
+        <h1>#7</h1>
       </section>
       <section>
         <p class="bigtext">Fatal errors suck</p>
@@ -424,6 +372,58 @@ set_exception_handler(function($e) {
 });
           </code></pre>
         </div>
+      </section>
+    </section>
+    <section>
+      <!-- Expectations -->
+      <section>
+        <h1>#8</h1>
+      </section>
+      <section>
+        <p class="bigtext">Assertions suck</p>
+        <pre class="font--16"><code class="php" data-trim>
+function doStuff($def) {
+  assert(is_array($def) && isset($def['key']) && isset($def['value']), 'Invalid def');
+  // ...
+}
+        </code></pre>
+        <div class="fragment">
+          <pre class="font--16"><code class="php" data-trim>
+function doStuff($def) {
+  assert('is_array($def) && isset($def[\'key\']) && isset($def[\'value\'])', 'Invalid def');
+  // ...
+}
+          </code></pre>
+        </div>
+        <aside class="notes">
+          <ul>
+            <li>Only in development, disable on prod</li>
+            <li>assert() is func, code always executes</li>
+            <li>String gets eval()ed.</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <pre class="font--16"><code class="php" data-trim>
+ini_set('assert.exception', 1);
+ini_set('zend.assertions', 1);
+
+class InvalidDefStruct extends AssertionError {}
+
+function doStuff(array $def) {
+  assert(isset($def['key']) && isset($def['value']), new InvalidDefStruct('Invalid def'));
+  // ...
+}
+        </code></pre>
+        <p class="fragment bigtext">Assertions are actually not-broken!</p>
+        <aside class="notes">
+          <ul>
+            <li>assert() now language construct</li>
+            <li>Smart now.</li>
+            <li>Note AssertionError, not AssertionException</li>
+            <li>Still disable in production</li>
+          </ul>
+        </aside>
       </section>
     </section>
     <section>
