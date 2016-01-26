@@ -77,7 +77,7 @@
       </div>
     </section>
     <section>
-      <img src="assets/php7-logo.svg" alt="PHP 7" data-src="http://www.cowburn.info/2015/06/18/php7-logo/" />
+      <img src="assets/php7-logo.svg" alt="PHP 7" data-credit="http://www.cowburn.info/2015/06/18/php7-logo/" />
     </section>
     <section>
       <section>
@@ -101,6 +101,75 @@
       <!-- Spaceship -->
       <section>
         <h1>#4</h1>
+      </section>
+      <section>
+        <pre class="font--16"><code class="php" data-trim>
+usort($array, function ($a, $b) {
+  if ($a < $b) {
+    return -1;
+  }
+  elseif ($a > $b) {
+    return 1;
+  }
+  else {
+    return 0;
+  }
+});
+        </code></pre>
+      </section>
+      <section>
+        <h1>T_SPACESHIP</h1>
+        <h1 style="margin-top: 1em;"><=></h1>
+      </section>
+      <section data-background="assets/tie-interceptor.jpg" data-background-size="100%" data-credit="http://fractalsponge.net/?p=128">
+      </section>
+      <section>
+        <pre class="font--16"><code class="php" data-trim>
+usort ($array, function($a, $b) {
+  return $a <=> $b;
+});
+        </code></pre>
+      </section>
+      <section>
+        <pre class="font--16"><code class="php" data-trim>
+usort($people, function (Person $a, Person $b) {
+  if ($a->lastName() < $b->lastName()) {
+    return -1;
+  }
+  elseif ($a->lastName() > $b->lastName()) {
+    return 1;
+  }
+  else {
+    if ($a->firstName() < $b->firstName()) {
+      return -1;
+    }
+    elseif ($a->firstName() > $b->firstName()) {
+      return 1;
+    }
+    else {
+      return 0;
+    }
+  }
+});
+        </code></pre>
+      </section>
+      <section>
+        <pre class="font--16"><code class="php" data-trim>
+usort($people, function (Person $a, Person $b) {
+  return $a->lastName() < $b->lastName() ? -1
+    : ($a->lastName() > $b->lastName() ? 1
+      : $a->firstName() < $b->firstName() ? -1
+        : ($a->firstName() > $b->firstName() ? 1 : 0));
+});
+        </code></pre>
+        <h2 class="fragment" style="margin-top: 1em;"><q>You're Fired!</q></h2>
+      </section>
+      <section>
+        <pre class="font--16"><code class="php" data-trim>
+usort($people, function (Person $a, Person $b) {
+  return [$a->lastName(), $a->firstName()] <=> [$b->lastName(), $b->firstName()];
+});
+        </code></pre>
       </section>
     </section>
     <section>
@@ -147,18 +216,19 @@
     </section>
     <section>
       <section>
-        <q>But I'm scared of .0 releases!</q>
+        <p class="bigtext"><q>But I'm scared of .0 releases!</q></p>
       </section>
       <section>
         <ul>
           <li><img src="assets/drupal-8-logo.svg" alt="Drupal 8" /></li>
           <li><img src="assets/symfony-logo-vertical.svg" alt="Symfony2 and 3" /></li>
           <li><img src="assets/zf2-logo.svg" alt="Zend Framework 2 and 3" /></li>
-          <li><img src="assets/laravel-logo.svg" alt="Larvel" /></li>
+          <li><img src="assets/laravel-l-slant.png" alt="Larvel" /></li>
           <li><img src="assets/yii-logo.png" alt="Yii framework" /></li>
           <li><img src="assets/magento-logo.png" alt="Magento" /></li>
           <li><img src="assets/slim-logo.png" alt="Slim" /></li>
           <li><img src="assets/wordpress-logo-stacked.png" alt="Wordpress" /></li>
+          <li><img src="assets/cake-logo.png" alt="Cake PHP 3" /></li>
         </ul>
         <aside class="notes">
           <ul>
