@@ -19,7 +19,7 @@
   </script>
 
   <script src="palantir-reveal/countup.js"></script>
-  <script src="palantirnet-theme/classer.js"></script>
+  <script src="palantir-reveal/classer.js"></script>
   <!--[if lt IE 9]>
   <script src="lib/js/html5shiv.js"></script>
   <![endif]-->
@@ -52,6 +52,27 @@
       color: Red;
       font-style: italic;
       text-shadow: 3px 3px 10px #990000;
+    }
+
+    .reveal pre + pre,
+    .reveal p + pre,
+    .reveal pre + p,
+    .reveal p + p {
+      margin-top: 1em;
+    }
+
+    ul.project-list {
+      display: flex;
+      flex-wrap: wrap;
+      list-style: none;
+      justify-content: space-around;
+      align-items: baseline;
+    }
+    ul.project-list > li {
+      padding: 20px;
+    }
+    ul.project-list > li > img {
+      width: 150px;
     }
 
   </style>
@@ -108,7 +129,7 @@
         <h1>#3</h1>
       </section>
       <section>
-        <pre class="font--16"><code class="php" data-trim>
+        <pre class="font--24"><code class="php" data-trim>
 usort($array, function ($a, $b) {
   if ($a < $b) {
     return -1;
@@ -129,14 +150,14 @@ usort($array, function ($a, $b) {
       <section data-background="assets/tie-interceptor.jpg" data-background-size="100%" data-credit="http://fractalsponge.net/?p=128">
       </section>
       <section>
-        <pre class="font--16"><code class="php" data-trim>
+        <pre class="font--24"><code class="php" data-trim>
 usort ($array, function($a, $b) {
   return $a <=> $b;
 });
         </code></pre>
       </section>
       <section>
-        <pre class="font--16"><code class="php" data-trim>
+        <pre class="font--24"><code class="php" data-trim>
 usort($people, function (Person $a, Person $b) {
   if ($a->lastName() < $b->lastName()) {
     return -1;
@@ -159,7 +180,7 @@ usort($people, function (Person $a, Person $b) {
         </code></pre>
       </section>
       <section>
-        <pre class="font--16"><code class="php" data-trim>
+        <pre class="font--24"><code class="php" data-trim>
 usort($people, function (Person $a, Person $b) {
   return $a->lastName() < $b->lastName() ? -1
     : ($a->lastName() > $b->lastName() ? 1
@@ -170,7 +191,7 @@ usort($people, function (Person $a, Person $b) {
         <h2 class="fragment" style="margin-top: 1em;"><q>You're Fired!</q></h2>
       </section>
       <section>
-        <pre class="font--16"><code class="php" data-trim>
+        <pre class="font--18"><code class="php" data-trim>
 usort($people, function (Person $a, Person $b) {
   return [$a->lastName(), $a->firstName()] <=> [$b->lastName(), $b->firstName()];
 });
@@ -183,24 +204,24 @@ usort($people, function (Person $a, Person $b) {
         <h1>#4</h1>
       </section>
       <section>
-        <pre class="font--16"><code class="php" data-trim>
+        <pre class="font--24"><code class="php" data-trim>
 $username = $username ? $username : 'Anonymous';
         </code></pre>
-         <pre class="fragment font--16"><code class="php" data-trim>
+        <pre class="fragment font--24" style="margin-top: 1em;"><code class="php" data-trim>
 $username = $username ?: 'Anonymous';
         </code></pre>
         <p class="fragment bigtext">But what if $username doesn't exist?</p>
         <p class="fragment"><code>Notice: Undefined variable: username on line 3</code></p>
       </section>
       <section>
-        <pre class="font--16"><code class="php" data-trim>
+        <pre class="font--20"><code class="php" data-trim>
 $username = isset($username) && !is_null($username) ? $username : 'Anonymous';
         </code></pre>
         <p class="fragment">NULL coalesce!</p>
-        <pre class="fragment font--16"><code class="php" data-trim>
+        <pre class="fragment font--24"><code class="php" data-trim>
 $username = $username ?? 'Anonymous';
         </code></pre>
-        <pre class="fragment font--16"><code class="php" data-trim>
+        <pre class="fragment font--20"><code class="php" data-trim>
 $username = $submitted['username'] ?? $user->username() ?? 'Anonymous';
         </code></pre>
         <p class="fragment bigtext">?? checks setness, not truthiness</p>
@@ -236,12 +257,12 @@ $username = $submitted['username'] ?? $user->username() ?? 'Anonymous';
       </section>
       <section>
         <p>Ask and ye shall receive&hellip;</p>
-       <pre class="fragment font--16"><code class="php" data-trim>
- $junk = random_bytes(16);
+       <pre class="fragment font--24"><code class="php" data-trim>
+$junk = random_bytes(16);
 
- $val = random_int(1, 100);
+$val = random_int(1, 100);
        </code></pre>
-        <div class="fragment">
+        <div class="fragment" style="margin-top: 1em;">
           <h3>On PHP 5?</h3>
           <p><code>composer require paragonie/random_compat</code></p>
           <p class="fragment"><a href="https://github.com/paragonie/random_compat">https://github.com/paragonie/random_compat</a></p>
@@ -261,7 +282,7 @@ $username = $submitted['username'] ?? $user->username() ?? 'Anonymous';
           <li>random_bytes()</li>
           <li>random_int()</li>
         </ul>
-        <p id="security-wrong" class="fragment"  data-classer="security-wrong" data-classer-class="bigdeal" style="margin-top: 1em;">You're Doing It Wrong</p>
+        <p id="security-wrong" class="fragment" data-classer="security-wrong" data-classer-class="bigdeal" style="margin-top: 1em;">You're Doing It Wrong!</p>
       </section>
     </section>
     <section>
@@ -282,12 +303,12 @@ $username = $submitted['username'] ?? $user->username() ?? 'Anonymous';
           <ul>
             <li>No cleanup</li>
             <li>No finally, no destructors</li>
-            <li>No context</li>
+            <li>No context in error handler</li>
           </ul>
         </aside>
       </section>
       <section>
-        <pre class="font--16"><code class="php" data-trim>
+        <pre class="font--24"><code class="php" data-trim>
 function doStuff(Request $r) {
   // ...
 }
@@ -297,9 +318,14 @@ $u = new User();
 doStuff($u);
         </code></pre>
         <p class="fragment"><code>Catchable fatal error: Argument 1 passed to doStuff() must be an instance of Request, instance of User given</code></p>
+        <aside class="notes">
+          <ul>
+            <li>Why catchable if I can't catch?</li>
+          </ul>
+        </aside>
       </section>
       <section>
-        <pre class="font--16"><code class="php" data-trim>
+        <pre class="font--24"><code class="php" data-trim>
 function doStuff(Request $r) {
   // ...
 }
@@ -315,7 +341,7 @@ catch (\TypeError $e) {
         </code></pre>
       </section>
       <section>
-        <pre class="font--16"><code class="php" data-trim>
+        <pre class="font--24"><code class="php" data-trim>
 try {
   nonexistant_function();
 }
@@ -325,7 +351,7 @@ catch (\Error $e) {
         </code></pre>
       </section>
       <section>
-        <pre class="font--16"><code class="php" data-trim>
+        <pre class="font--24"><code class="php" data-trim>
 try {
   include 'buggy_file.php';
 }
@@ -350,23 +376,22 @@ catch (\ParseError $e) {
       </section>
       <section>
         <h3>PHP 5</h3>
-        <pre class="font--16"><code class="php" data-trim>
+        <pre class="font--24"><code class="php" data-trim>
 set_exception_handler(function(\Exception $e) {
   // ...
 });
         </code></pre>
         <div class="fragment">
           <h3>PHP 7</h3>
-          <pre class="font--16"><code class="php" data-trim>
+          <pre class="font--24"><code class="php" data-trim>
 set_exception_handler(function(\Throwable $e) {
   // ...
 });
-
           </code></pre>
         </div>
         <div class="fragment">
           <h3>PHP 5 &amp; 7</h3>
-          <pre class="font--16"><code class="php" data-trim>
+          <pre class="font--24"><code class="php" data-trim>
 set_exception_handler(function($e) {
   // ...
 });
@@ -381,16 +406,16 @@ set_exception_handler(function($e) {
       </section>
       <section>
         <p class="bigtext">Assertions suck</p>
-        <pre class="font--16"><code class="php" data-trim>
-function doStuff($def) {
-  assert(is_array($def) && isset($def['key']) && isset($def['value']), 'Invalid def');
+        <pre class="font--20"><code class="php" data-trim>
+function doStuff(array $def) {
+  assert(isset($def['key']) && isset($def['value']), 'Invalid def');
   // ...
 }
         </code></pre>
-        <div class="fragment">
-          <pre class="font--16"><code class="php" data-trim>
-function doStuff($def) {
-  assert('is_array($def) && isset($def[\'key\']) && isset($def[\'value\'])', 'Invalid def');
+        <div class="fragment" style="margin-top: 1em;">
+          <pre class="font--20"><code class="php" data-trim>
+function doStuff(array $def) {
+  assert('isset($def[\'key\']) && isset($def[\'value\'])', 'Invalid def');
   // ...
 }
           </code></pre>
@@ -404,14 +429,14 @@ function doStuff($def) {
         </aside>
       </section>
       <section>
-        <pre class="font--16"><code class="php" data-trim>
+        <pre class="font--18"><code class="php" data-trim>
 ini_set('assert.exception', 1);
 ini_set('zend.assertions', 1);
 
-class InvalidDefStruct extends AssertionError {}
+class InvalidDef extends AssertionError {}
 
 function doStuff(array $def) {
-  assert(isset($def['key']) && isset($def['value']), new InvalidDefStruct('Invalid def'));
+  assert(isset($def['key']) && isset($def['value']), new InvalidDef('Invalid def'));
   // ...
 }
         </code></pre>
@@ -449,7 +474,7 @@ function doStuff(array $def) {
         <p class="bigtext"><q>But I'm scared of .0 releases!</q></p>
       </section>
       <section>
-        <ul>
+        <ul class="project-list">
           <li><img src="assets/drupal-8-logo.svg" alt="Drupal 8" /></li>
           <li><img src="assets/symfony-logo-vertical.svg" alt="Symfony2 and 3" /></li>
           <li><img src="assets/zf2-logo.svg" alt="Zend Framework 2 and 3" /></li>
@@ -460,6 +485,7 @@ function doStuff(array $def) {
           <li><img src="assets/wordpress-logo-stacked.png" alt="Wordpress" /></li>
           <li><img src="assets/cake-logo.png" alt="Cake PHP 3" /></li>
           <li><img src="assets/doctrineorm.jpg" alt="Doctrine" /></li>
+          <li><img src="assets/phpmyadmin-logo.png" alt="phpMyAdmin" /></li>
         </ul>
         <aside class="notes">
           <ul>
@@ -469,11 +495,14 @@ function doStuff(array $def) {
       </section>
       <section>
         <p class="bigtext"><a href="http://phpversions.info/php-7/">http://phpversions.info/php-7/</a></p>
-        <p class="bigtext"><span class="fragment" data-countup="1" data-countup-step="1">28</span><span class="fragment"> and counting</span></p>
+        <p class="bigtext">PHP 7-ready hosts: <span class="fragment" data-countup="1" data-countup-step="1">28</span> <span class="fragment"> and counting</span></p>
       </section>
       <section>
         Ubuntu and Debian stable will ship 7.x.
       </section>
+    </section>
+    <section>
+      <img src="assets/php7-logo.svg" alt="PHP 7" data-credit="http://www.cowburn.info/2015/06/18/php7-logo/" />
     </section>
 
     <div style="display:none">
@@ -481,14 +510,14 @@ function doStuff(array $def) {
 
       Scalar types
       Return types
-      Expectations (assertions that work)
 
       Spaceship operator
       Null coalesce
       CSPRING
 
       Anonymous classes
-      Unicode code points
+      Errors
+      Expectations (assertions that work)
 
       Generator improvements
       Uniform variable syntax
@@ -496,12 +525,12 @@ function doStuff(array $def) {
       Speed
     </div>
 
-        <section id="final">
-          <h2>Larry Garfield</h2>
-          <p>Senior Architect, <a href="http://www.palantir.net/">Palantir.net</a></p>
-          <p>Let's Make Something Good Together.</p>
-          <p>Keep tabs on our work at <a href="http://twitter.com/Palantir">@Palantir</a></p>
-        </section>
+    <section id="final">
+      <h2>Larry Garfield</h2>
+      <p>Senior Architect, <a href="http://www.palantir.net/">Palantir.net</a></p>
+      <p>Let's Make Something Good Together.</p>
+      <p>Keep tabs on our work at <a href="http://twitter.com/Palantir">@Palantir</a></p>
+    </section>
 
   </div>
 
