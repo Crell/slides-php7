@@ -105,3 +105,11 @@ catch (\ParseError $e) {
 set_exception_handler(function(\Exception $e) {
 
 });
+
+
+// CSPRNG
+
+$junk = random_bytes(16);
+
+$val = random_int(1, 100);
+

@@ -19,6 +19,7 @@
   </script>
 
   <script src="palantir-reveal/countup.js"></script>
+  <script src="palantirnet-theme/classer.js"></script>
   <!--[if lt IE 9]>
   <script src="lib/js/html5shiv.js"></script>
   <![endif]-->
@@ -45,6 +46,14 @@
     ul.inline li {
       display: inline;
     }
+
+    p.bigdeal {
+      font-size: 200%;
+      color: Red;
+      font-style: italic;
+      text-shadow: 3px 3px 10px #990000;
+    }
+
   </style>
 
 </head>
@@ -207,6 +216,58 @@ $username = $submitted['username'] ?? $user->username() ?? 'Anonymous';
       <!-- CSPRING -->
       <section>
         <h1>#6</h1>
+      </section>
+      <section>
+        <p class="bigtext">Cryptography is hard</p>
+        <aside class="notes">
+          <ul>
+            <li>Need big random numbers</li>
+            <li>Random isn't random in computers</li>
+            <li>"Sufficiently" random</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <h2>Don't we have this already?</h2>
+        <ul>
+          <li class="fragment"><code>rand()</code> isn't really random</li>
+          <li class="fragment"><code>mcrypt()</code> isn't really random</li>
+          <li class="fragment"><code>fread(fopen('/dev/urandom'), 16)</code> isn't portable</li>
+          <li class="fragment">openssl is hard to use</li>
+        </ul>
+        <p class="bigtext fragment">Fail!</p>
+      </section>
+      <section>
+        <p class="bigtext">What we want is an easy <br /><b>C</b>ryptographically <b>S</b>ecure <b>P</b>seudo-<b>R</b>andom <b>N</b>umber <b>G</b>enerator</p>
+      </section>
+      <section>
+        <p>Ask and ye shall receive&hellip;</p>
+       <pre class="fragment font--16"><code class="php" data-trim>
+ $junk = random_bytes(16);
+
+ $val = random_int(1, 100);
+       </code></pre>
+        <div class="fragment">
+          <h3>On PHP 5?</h3>
+          <p><code>composer require paragonie/random_compat</code></p>
+          <p class="fragment"><a href="https://github.com/paragonie/random_compat">https://github.com/paragonie/random_compat</a></p>
+        </div>
+        <aside class="notes">
+          <ul>
+            <li>Bytes, not chars; do not print</li>
+            <li>random_int() is inclusive.</li>
+            <li>Throws exceptions if can't run.</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <p class="bigtext">If you're not using these functions for security...</p>
+        <ul class="fragment">
+          <li>password_hash() / password_verify()</li>
+          <li>random_bytes()</li>
+          <li>random_int()</li>
+        </ul>
+        <p id="security-wrong" class="fragment"  data-classer="security-wrong" data-classer-class="bigdeal" style="margin-top: 1em;">You're Doing It Wrong</p>
       </section>
     </section>
     <section>
