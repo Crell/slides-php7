@@ -18,7 +18,6 @@ usort ($array, function($a, $b) {
   return $a <=> $b;
 });
 
-
 usort($people, function (Person $a, Person $b) {
   if ($a->lastName() < $b->lastName()) {
     return -1;
@@ -39,7 +38,6 @@ usort($people, function (Person $a, Person $b) {
   }
 });
 
-
 usort($people, function (Person $a, Person $b) {
   return $a->lastName() < $b->lastName() ? -1
     : ($a->lastName() > $b->lastName() ? 1
@@ -51,3 +49,20 @@ usort($people, function (Person $a, Person $b) {
 usort($people, function (Person $a, Person $b) {
   return [$a->lastName(), $a->firstName()] <=> [$b->lastName(), $b->firstName()];
 });
+
+// NULL Coalesce
+
+$username = $username ? $username : 'Anonymous';
+
+$username = $username ?: 'Anonymous';
+
+// But what if $username doesn't exist?
+
+$username = isset($username) && !is_null($username) ? $username : 'Anonymous';
+
+$username = $username ?? 'Anonymous';
+
+$username = $submitted['username'] ?? $user->username() ?? 'Anonymous';
+
+// ?? checks setness, not truthiness
+

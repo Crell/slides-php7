@@ -177,6 +177,29 @@ usort($people, function (Person $a, Person $b) {
       <section>
         <h1>#5</h1>
       </section>
+      <section>
+        <pre class="font--16"><code class="php" data-trim>
+$username = $username ? $username : 'Anonymous';
+        </code></pre>
+         <pre class="fragment font--16"><code class="php" data-trim>
+$username = $username ?: 'Anonymous';
+        </code></pre>
+        <p class="fragment bigtext">But what if $username doesn't exist?</p>
+        <p class="fragment"><code>Notice: Undefined variable: username on line 3</code></p>
+      </section>
+      <section>
+        <pre class="font--16"><code class="php" data-trim>
+$username = isset($username) && !is_null($username) ? $username : 'Anonymous';
+        </code></pre>
+        <p class="fragment">NULL coalesce!</p>
+        <pre class="fragment font--16"><code class="php" data-trim>
+$username = $username ?? 'Anonymous';
+        </code></pre>
+        <pre class="fragment font--16"><code class="php" data-trim>
+$username = $submitted['username'] ?? $user->username() ?? 'Anonymous';
+        </code></pre>
+        <p class="fragment bigtext">?? checks setness, not truthiness</p>
+      </section>
     </section>
     <section>
       <!-- CSPRING -->
@@ -191,7 +214,7 @@ usort($people, function (Person $a, Person $b) {
       </section>
     </section>
     <section>
-      <!-- Unicode code points (maybe drop?) -->
+      <!-- Engine exceptions / Errors -->
       <section>
         <h1>#8</h1>
       </section>
@@ -229,6 +252,7 @@ usort($people, function (Person $a, Person $b) {
           <li><img src="assets/slim-logo.png" alt="Slim" /></li>
           <li><img src="assets/wordpress-logo-stacked.png" alt="Wordpress" /></li>
           <li><img src="assets/cake-logo.png" alt="Cake PHP 3" /></li>
+          <li><img src="assets/doctrineorm.jpg" alt="Doctrine" /></li>
         </ul>
         <aside class="notes">
           <ul>
