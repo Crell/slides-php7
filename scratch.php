@@ -113,3 +113,27 @@ $junk = random_bytes(16);
 
 $val = random_int(1, 100);
 
+// Expectations
+
+function doStuff($def) {
+  assert(is_array($def) && isset($def['key']) && isset($def['value']), 'Invalid def');
+  // ...
+}
+
+function doStuff($def) {
+  assert('is_array($def) && isset($def[\'key\']) && isset($def[\'value\'])', 'Invalid def');
+  // ...
+}
+
+
+ini_set('assert.exception', 1);
+ini_set('zend.assertions', 1);
+
+class InvalidDefStruct extends AssertionError {}
+
+function doStuff(array $def) {
+  assert(isset($def['key']) && isset($def['value']), new InvalidDefStruct('Invalid def'));
+  // ...
+}
+
+

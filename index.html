@@ -107,6 +107,52 @@
       <section>
         <h1>#3</h1>
       </section>
+      <section>
+        <p class="bigtext">Assertions suck</p>
+        <pre class="font--16"><code class="php" data-trim>
+function doStuff($def) {
+  assert(is_array($def) && isset($def['key']) && isset($def['value']), 'Invalid def');
+  // ...
+}
+        </code></pre>
+        <div class="fragment">
+          <pre class="font--16"><code class="php" data-trim>
+function doStuff($def) {
+  assert('is_array($def) && isset($def[\'key\']) && isset($def[\'value\'])', 'Invalid def');
+  // ...
+}
+          </code></pre>
+        </div>
+        <aside class="notes">
+          <ul>
+            <li>Only in development, disable on prod</li>
+            <li>assert() is func, code always executes</li>
+            <li>String gets eval()ed.</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <pre class="font--16"><code class="php" data-trim>
+ini_set('assert.exception', 1);
+ini_set('zend.assertions', 1);
+
+class InvalidDefStruct extends AssertionError {}
+
+function doStuff(array $def) {
+  assert(isset($def['key']) && isset($def['value']), new InvalidDefStruct('Invalid def'));
+  // ...
+}
+        </code></pre>
+        <p class="fragment bigtext">Assertions are actually not-broken!</p>
+        <aside class="notes">
+          <ul>
+            <li>assert() now language construct</li>
+            <li>Smart now.</li>
+            <li>Note AssertionError, not AssertionException</li>
+            <li>Still disable in production</li>
+          </ul>
+        </aside>
+      </section>
     </section>
     <section>
       <!-- Spaceship -->
