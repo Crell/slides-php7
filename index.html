@@ -17,6 +17,8 @@
     link.href = window.location.search.match( /print-pdf/gi ) ? 'palantirnet-theme/assets/css/print/pdf.css' : 'palantirnet-theme/assets/css/print/paper.css';
     document.getElementsByTagName( 'head' )[0].appendChild( link );
   </script>
+
+  <script src="palantir-reveal/countup.js"></script>
   <!--[if lt IE 9]>
   <script src="lib/js/html5shiv.js"></script>
   <![endif]-->
@@ -217,6 +219,104 @@ $username = $submitted['username'] ?? $user->username() ?? 'Anonymous';
       <!-- Engine exceptions / Errors -->
       <section>
         <h1>#8</h1>
+      </section>
+      <section>
+        <p class="bigtext">Fatal errors suck</p>
+        <p class="fragment bigtext">Recoverable errors&hellip; aren't</p>
+        <aside class="notes">
+          <ul>
+            <li>No cleanup</li>
+            <li>No finally, no destructors</li>
+            <li>No context</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <pre class="font--16"><code class="php" data-trim>
+function doStuff(Request $r) {
+  // ...
+}
+
+$u = new User();
+
+doStuff($u);
+        </code></pre>
+        <p class="fragment"><code>Catchable fatal error: Argument 1 passed to doStuff() must be an instance of Request, instance of User given</code></p>
+      </section>
+      <section>
+        <pre class="font--16"><code class="php" data-trim>
+function doStuff(Request $r) {
+  // ...
+}
+
+$u = new User();
+
+try {
+  doStuff($u);
+}
+catch (\TypeError $e) {
+  print "Wrong variable type, dummy." . PHP_EOL;
+}
+        </code></pre>
+      </section>
+      <section>
+        <pre class="font--16"><code class="php" data-trim>
+try {
+  nonexistant_function();
+}
+catch (\Error $e) {
+  print "The error was " . $e->getMessage();
+}
+        </code></pre>
+      </section>
+      <section>
+        <pre class="font--16"><code class="php" data-trim>
+try {
+  include 'buggy_file.php';
+}
+catch (\ParseError $e) {
+  $logger->error("That file is buggy!");
+}
+        </code></pre>
+      </section>
+      <section>
+        <div>Diagram of new class tree, including \Throwable</div>
+        <p class="fragment" style="text-decoration: line-through">E_FATAL, E_RECOVERABLE_ERROR, E_PARSE, E_COMPILE_ERROR</p>
+      </section>
+      <section>
+        <p class="bigtext">Exceptions: The user screwed up</p>
+        <p class="bigtext">Errors: The coder screwed up</p>
+        <aside class="notes">
+          <ul>
+            <li>Really only useful for high-level log/cleanup</li>
+            <li>Unlikely you can continue anyway.</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <h3>PHP 5</h3>
+        <pre class="font--16"><code class="php" data-trim>
+set_exception_handler(function(\Exception $e) {
+  // ...
+});
+        </code></pre>
+        <div class="fragment">
+          <h3>PHP 7</h3>
+          <pre class="font--16"><code class="php" data-trim>
+set_exception_handler(function(\Throwable $e) {
+  // ...
+});
+
+          </code></pre>
+        </div>
+        <div class="fragment">
+          <h3>PHP 5 &amp; 7</h3>
+          <pre class="font--16"><code class="php" data-trim>
+set_exception_handler(function($e) {
+  // ...
+});
+          </code></pre>
+        </div>
       </section>
     </section>
     <section>

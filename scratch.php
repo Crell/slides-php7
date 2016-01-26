@@ -1,5 +1,7 @@
 <?php
 
+/*
+
 // Spaceship
 
 usort($array, function ($a, $b) {
@@ -50,6 +52,9 @@ usort($people, function (Person $a, Person $b) {
   return [$a->lastName(), $a->firstName()] <=> [$b->lastName(), $b->firstName()];
 });
 
+*/
+
+/*
 // NULL Coalesce
 
 $username = $username ? $username : 'Anonymous';
@@ -66,3 +71,37 @@ $username = $submitted['username'] ?? $user->username() ?? 'Anonymous';
 
 // ?? checks setness, not truthiness
 
+*/
+
+// Engine exceptions
+
+try {
+  nonexistant_function();
+}
+catch (\Error $e) {
+  print "The error was " . $e->getMessage();
+}
+
+function doStuff(Request $r) {
+  // ...
+}
+
+$u = new User();
+
+try {
+  doStuff($u);
+}
+catch (\TypeError $e) {
+  print "Wrong variable type, dummy." . PHP_EOL;
+}
+
+try {
+  include 'buggy_file.php';
+}
+catch (\ParseError $e) {
+  $logger->error("That file is buggy!");
+}
+
+set_exception_handler(function(\Exception $e) {
+
+});
