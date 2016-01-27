@@ -456,6 +456,95 @@ function doStuff(array $def) {
       <section>
         <h1>#9</h1>
       </section>
+      <section>
+        <h3>You're not still doing iterators the hard way,<br/>are you?</h3>
+      </section>
+      <section>
+        <pre class="font--18"><code class="php" data-trim>
+class RemoteSource implements Iterator {
+  protected $key;
+
+  protected $current;
+
+  protected $client;
+
+  public function __construct(Client $client) {
+    $this->client = $client;
+    $this->key = 0;
+  }
+
+  public function current() {
+    return $this->current;
+  }
+
+  public function next() {
+    $this->current = $this->client->get('http://api.com/entry/' . $this->key);
+    $this->key++;
+  }
+
+  public function key() {
+    return $this->key;
+  }
+
+  public function valid() {
+    return (bool)$this->current;
+  }
+
+  public function rewind() {
+    throw new Exception();
+  }
+}
+        </code></pre>
+      </section>
+      <section>
+        <pre class="font--24"><code class="php" data-trim>
+$result = $db->query(...);
+
+$iterator = new AppendIterator();
+$iterator->append(new RemoteSource($client));
+$iterator->append($result);
+
+foreach ($iterator as $item) {
+  // Do something.
+}
+        </code></pre>
+      </section>
+      <section>
+        <h3>In PHP 7...</h3>
+        <pre class="font--20"><code class="php" data-trim>
+function getRemoteValues($client) {
+  $key = 0;
+  while ($val = $client->get('http://api.com/entry/' . $key++)) {
+    yield $val;
+  }
+}
+
+function getLocalValues() {
+  foreach (db()->query(...) as $record) {
+    yield $record;
+  }
+}
+
+function getValues($client) {
+  // This is the new part.
+  yield from getRemoteValues($client);
+  yield from getLocalValues();
+  return 'done';
+}
+
+$values = getValues($client);
+foreach ($values as $item) {
+  // Do stuff
+}
+print $val->getReturn() . PHP_EOL;
+        </code></pre>
+        <aside class="notes">
+          <ul>
+            <li>Mostly for coroutines</li>
+            <li>"yield from" useful for aggregating lists</li>
+          </ul>
+        </aside>
+      </section>
     </section>
     <section>
       <!-- Uniform variable syntax -->

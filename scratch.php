@@ -136,4 +136,73 @@ function doStuff(array $def) {
   // ...
 }
 
+// Generators
 
+class RemoteSource implements Iterator {
+  protected $key;
+
+  protected $current;
+
+  protected $client;
+
+  public function __construct(Client $client) {
+    $this->client = $client;
+    $this->key = 0;
+  }
+
+  public function current() {
+    return $this->current;
+  }
+
+  public function next() {
+    $this->current = $this->client->get('http://api.com/entry/' . $this->key);
+    $this->key++;
+  }
+
+  public function key() {
+    return $this->key;
+  }
+
+  public function valid() {
+    return (bool)$this->current;
+  }
+
+  public function rewind() {
+    throw new Exception();
+  }
+}
+
+$result = $db->query(...);
+
+$iterator = new AppendIterator();
+$iterator->append(new RemoteSource($client));
+$iterator->append($result);
+
+foreach ($iterator as $item) {
+  // Do something.
+}
+
+function getRemoteValues($client) {
+  $key = 0;
+  while ($val = $client->get('http://api.com/entry/' . $key++)) {
+    yield $val;
+  }
+}
+
+function getLocalValues() {
+  foreach (db()->query(...) as $record) {
+    yield $record;
+  }
+}
+
+function getValues($client) {
+  yield from getRemoteValues($client);
+  yield from getLocalValues();
+  return 'done';
+}
+
+$values = getValues($client);
+foreach ($values as $item) {
+  // Do stuff
+}
+print $val->getReturn() . PHP_EOL;
