@@ -462,6 +462,65 @@ function doStuff(array $def) {
       <section>
         <h1>#10</h1>
       </section>
+      <section>
+        <h2>What does this do?</h2>
+        <pre class="fragment font--24"><code class="php" data-trim>
+$$foo['bar']['baz']
+        </code></pre>
+        <pre class="fragment font--24"><code class="php" data-trim>
+$foo->$bar['baz']
+        </code></pre>
+        <pre class="fragment font--24"><code class="php" data-trim>
+$foo->$bar['baz']()
+        </code></pre>
+        <pre class="fragment font--24"><code class="php" data-trim>
+Foo::$bar['baz']()
+        </code></pre>
+        <pre class="fragment font--24"><code class="php" data-trim>
+Foo::$bar[1][2][3]()
+        </code></pre>
+        <aside class="notes">
+          <ul>
+            <li>First: ${$foo['bar']['baz']}</li>
+            <li>Second:$foo->{$bar['baz']} </li>
+            <li>Third: $foo->{$bar['baz']}()</li>
+            <li>Fourth: Foo::{$bar['baz']}() </li>
+            <li>Fifth: Calls static method $bar[1][2][3] of Foo</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <h2>Uniform variable syntax</h2>
+        <p class="bigtext fragment">Always Left-To-Right</p>
+        <aside class="notes">
+          <ul>
+            <li>Makes parser easier</li>
+            <li>More predictable</li>
+            <li>Adds some nifty new options</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <h2>It's logical</h2>
+        <pre class="font--24"><code class="php" data-trim>
+$foo()['bar']()
+[$obj1, $obj2][0]->prop
+getStr(){0}
+$foo['bar']::$baz
+$foo::$bar::$baz
+$foo->bar()::baz()
+$foo()()
+        </code></pre>
+        <pre class="fragment font--24"><code class="php" data-trim>
+(...)['foo']
+(...)->foo
+(...)->foo()
+(...)()
+
+(function() { ... })()
+($obj->closure)()
+        </code></pre>
+      </section>
     </section>
     <section>
       <!-- Performance (PHP goes to 11) -->
