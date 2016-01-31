@@ -274,3 +274,32 @@ new class($logger) implements ServiceInterface {
 
   public function doServiceStuff() { }
 };
+
+// Return types
+
+class User {
+  protected $id;
+  protected $address;
+
+  /**
+   * @return Address
+   */
+  public function getAddress() {
+    return $this->address;
+  }
+}
+
+function compute_shipping($src, User $user) {
+  $dest = $user->getAddress();
+
+  $distance = distance_between($src, $dest);
+
+  return $distance * .5; // 50 cents/mile
+}
+
+$u_address = new Address(); // ...
+$user = new User(123, $u_address);
+
+$src = new Address(); // ...
+
+compute_shipping($src, $user);

@@ -113,12 +113,189 @@
     </section>
     <section>
       <section>
-        <!-- scalar types -->
+        <!-- return types-->
         <h1>#1</h1>
+      </section>
+      <section>
+        <p class="bigtext"><q>Do you trust your docblock?</q></p>
+      </section>
+      <section>
+        <pre class="font--24"><code class="php" data-trim>
+class User {
+  protected $id;
+  protected $address;
+
+  public function getAddress() {
+    return $this->address;
+  }
+}
+
+function compute_shipping($src, User $user) {
+  $dest = $user->getAddress();
+
+  $distance = distance_between($src, $dest);
+
+  return $distance * .5; // 50 cents/mile
+}
+        </code></pre>
+        <aside class="notes">
+          <ul>
+            <li>What does getAddress() return? String? Address object?</li>
+            <li>Does compute_shipping() want the same thing?</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <pre class="font--24"><code class="php" data-trim>
+class User {
+  protected $id;
+  protected $address;
+
+  /**
+   * @return Address
+   */
+  public function getAddress() {
+    return $this->address;
+  }
+}
+
+function compute_shipping($src, User $user) {
+  $dest = $user->getAddress();
+
+  $distance = distance_between($src, $dest);
+
+  return $distance * .5; // 50 cents/mile
+}
+        </code></pre>
+        <aside class="notes">
+          <ul>
+            <li>We claim it's an Address, but is it?</li>
+            <li>Could always be null.</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <pre class="font--24"><code class="php" data-trim>
+class User {
+  protected $id;
+  protected $address;
+
+  public function getAddress() : Address {
+    return $this->address;
+  }
+}
+
+function compute_shipping($src, User $user) {
+  $dest = $user->getAddress();
+
+  $distance = distance_between($src, $dest);
+
+  return $distance * .5; // 50 cents/mile
+}
+        </code></pre>
+        <aside class="notes">
+          <ul>
+            <li>Always and ever an Address!</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <h2>Return types</h2>
+        <ul>
+          <li class="fragment">New in PHP 7!</li>
+          <li class="fragment">Not nullable (good)</li>
+        </ul>
+        <aside class="notes">
+          <ul>
+            <li>Not null avoids errors</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <pre class="font--24"><code class="php" data-trim>
+$r = new UserRepository();
+
+print $r->findById(123)->getAddress()->getStreet() . PHP_EOL;
+        </code></pre>
+        <pre class="fragment font--24"><code class="text" data-trim>
+          Method called on non-object
+        </code></pre>
+        <p style="margin-top: 1em" class="fragment">No NULL means:</p>
+        <ul>
+          <li class="fragment">Exception</li>
+          <li class="fragment">"Empty" value object</li>
+        </ul>
+        <aside class="notes">
+          <ul>
+            <li>Now you sigh and add a dozen if statements.</li>
+            <li>If typed returns, can't be null!  Blows up sooner.</li>
+            <li>Solution depends on use case.</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <h2>For Repositories etc.</h2>
+        <pre class="font--24"><code class="php" data-trim>
+class UserRepository {
+  // ...
+
+  public function findById($id) : User {
+    if (/* can't find the user */) {
+     throw new InvalidArgumentException('No such User: ' . $id);
+    }
+    return $user;
+  }
+
+}
+        </code></pre>
+        <aside class="notes">
+          <ul>
+            <li>The rest of the code likely won't work anyway.</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <h2>For Value objects</h2>
+        <pre class="font--24"><code class="php" data-trim>
+interface AddressInterface {
+  public function getStreet();
+  public function getCity();
+  public function getState();
+  public function getZip();
+}
+
+class EmptyAddress implements AddressInterface {
+  public function getStreet() { return ''; }
+  public function getCity() { return ''; }
+  public function getState() { return ''; }
+  public function getZip() { return ''; }
+}
+
+class Address implements AddressInterface {
+    // ...
+}
+        </code></pre>
+        <aside class="notes">
+          <ul>
+            <li>An empty value is useful, sometimes.</li>
+            <li>Very case-by-case.</li>
+            <li>Still better than NULL</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <p class="bigtext"><a href="http://www.garfieldtech.com/blog/empty-return-values">Returning false on error</a> is a<br />big 'screw you' to your users</p>
+        <aside class="notes">
+          <ul>
+            <li>Undermines type expectations</li>
+            <li>Forces callers to litter code with if-checks.</li>
+            <li>User can't rely on types to avoid errors</li>
+          </ul>
+        </aside>
       </section>
     </section>
     <section>
-      <!-- return types-->
+      <!-- scalar types -->
       <section>
         <h1>#2</h1>
       </section>
