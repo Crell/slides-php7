@@ -293,6 +293,110 @@ $val = random_int(1, 100);
       <section>
         <h1>#6</h1>
       </section>
+      <section>
+        <h2>Testing is hard</h2>
+         <pre class="font--24"><code class="php" data-trim>
+$mock_repository = $this
+  ->getMockBuilder(ThingieRepository::class)
+  ->disableOriginalConstructor()
+  ->getMock();
+
+$obj1 = new Thingie();
+$obj1->setVal('abc');
+
+$obj2 = $this->getMockBuilder(Thingie::class)
+  ->disableOriginalConstructor()
+  ->getMock();
+$obj1 ->method('getVal')->willReturn('def');
+
+$map = [
+  [1, $obj1],
+  [2, $obj2],
+];
+
+$mock_repository
+  ->method('load')->will($this->returnValueMap($map));
+
+$subject = new ClassUnderTest($mock_repository);
+$this->assertTrue($subject->findThings());
+         </code></pre>
+        <aside class="notes">
+          <ul>
+            <li>Ugly mock DSL</li>
+            <li>Dates from PHP 5.2 days or earlier</li>
+            <li>What we really want is a custom class, but put the code where?</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <h2>Fakes are easy</h2>
+         <pre class="font--24"><code class="php" data-trim>
+$fake_repository = new class extends ThingieRepository {
+  public function __construct() {}
+
+  public function load($id) {
+    switch ($id) {
+      case 1:
+        $obj1 = new Thingie();
+        $obj1->setVal('abc');
+        return $obj1;
+      case 2:
+        return new class extends Thingie {
+          public function getVal() {
+            return 'def';
+          }
+        };
+      default:
+        return null;
+    }
+  }
+};
+
+$subject = new ClassUnderTest($fake_repository);
+$this->assertTrue($subject->findThings());
+         </code></pre>
+        <aside class="notes">
+          <ul>
+            <li>Single-use class, define on instantiation</li>
+            <li>Mostly useful for testing</li>
+            <li>Can extend, implement, traits, pass type checks, NOT serialize</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <h2>One-off dependencies</h2>
+         <pre class="font--24"><code class="php" data-trim>
+new Service(new class implements LoggerInterface {
+  use LoggerTrait;
+
+  public function log($message) {
+    print $message . PHP_EOL;
+  }
+});
+         </code></pre>
+        <aside class="notes">
+          <ul>
+            <li>Also useful for debugging.</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <h2>Constructors, too</h2>
+         <pre class="font--24"><code class="php" data-trim>
+new class($logger) implements ServiceInterface {
+  public function __construct(LoggerInterface $logger) {
+    $this->logger = $logger;
+  }
+
+  public function doServiceStuff() { }
+};
+         </code></pre>
+        <aside class="notes">
+          <ul>
+            <li>As with anon functions, don't get too carried away.</li>
+          </ul>
+        </aside>
+      </section>
     </section>
     <section>
       <!-- Engine exceptions / Errors -->

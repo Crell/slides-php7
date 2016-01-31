@@ -206,3 +206,71 @@ foreach ($values as $item) {
   // Do stuff
 }
 print $val->getReturn() . PHP_EOL;
+
+// Anonymous classes
+
+$mock_repository = $this->getMockBuilder(ThingieRepository::class)
+  ->disableOriginalConstructor()
+  ->getMock();
+
+$obj1 = new Thingie();
+$obj1->setVal('abc');
+
+$obj2 = $this->getMockBuilder(Thingie::class)
+  ->disableOriginalConstructor()
+  ->getMock();
+$obj1->method('getVal')->willReturn('def');
+
+$map = [
+  [1, $obj1],
+  [2, $obj2],
+];
+
+$mock_repository->method('load')->will($this->returnValueMap($map));
+
+$subject = new ClassUnderTest($mock_repository);
+$this->assertTrue($subject->findThings());
+
+
+$fake_repository = new class extends ThingieRepository {
+  public function __construct() {}
+
+  public function load($id) {
+    switch ($id) {
+      case 1:
+        $obj1 = new Thingie();
+        $obj1->setVal('abc');
+        return $obj1;
+      case 2:
+        return new class extends Thingie {
+          public function getVal() {
+            return 'def';
+          }
+        };
+      default:
+        return null;
+    }
+  }
+};
+
+$subject = new ClassUnderTest($fake_repository);
+$this->assertTrue($subject->findThings());
+
+
+
+new Service(new class implements LoggerInterface {
+  use LoggerTrait;
+
+  public function log($message) {
+    print $message . PHP_EOL;
+  }
+});
+
+
+new class($logger) implements ServiceInterface {
+  public function __construct(LoggerInterface $logger) {
+    $this->logger = $logger;
+  }
+
+  public function doServiceStuff() { }
+};
