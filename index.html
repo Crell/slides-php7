@@ -188,7 +188,7 @@ usort($people, function (Person $a, Person $b) {
         : ($a->firstName() > $b->firstName() ? 1 : 0));
 });
         </code></pre>
-        <h2 class="fragment" style="margin-top: 1em;"><q>You're Fired!</q></h2>
+        <p id="fired" class="fragment" data-classer="fired" data-classer-class="bigdeal" style="margin-top: 1em;">You're Fired!</p>
       </section>
       <section>
         <pre class="font--18"><code class="php" data-trim>
@@ -250,10 +250,13 @@ $username = $submitted['username'] ?? $user->username() ?? 'Anonymous';
           <li class="fragment"><code>fread(fopen('/dev/urandom'), 16)</code> isn't portable</li>
           <li class="fragment">openssl is hard to use</li>
         </ul>
-        <p class="bigtext fragment">Fail!</p>
+      </section>
+      <section>
+        <img src="assets/picard-riker-facepalm.jpg" alt="Picard-Riker Face Palm" />
       </section>
       <section>
         <p class="bigtext">What we want is an easy <br /><b>C</b>ryptographically <b>S</b>ecure <b>P</b>seudo-<b>R</b>andom <b>N</b>umber <b>G</b>enerator</p>
+        <p class="bigtext fragment">CSPRNG!</p>
       </section>
       <section>
         <p>Ask and ye shall receive&hellip;</p>
@@ -429,6 +432,7 @@ function doStuff(array $def) {
         </aside>
       </section>
       <section>
+        <h2>PHP 7: Expectations</h2>
         <pre class="font--18"><code class="php" data-trim>
 ini_set('assert.exception', 1);
 ini_set('zend.assertions', 1);
@@ -540,8 +544,8 @@ print $val->getReturn() . PHP_EOL;
         </code></pre>
         <aside class="notes">
           <ul>
-            <li>Mostly for coroutines</li>
             <li>"yield from" useful for aggregating lists</li>
+            <li>Mostly for coroutines (Icicle.io)</li>
           </ul>
         </aside>
       </section>
@@ -593,11 +597,17 @@ Foo::$bar[1][2][3]()
         <h2>It's logical</h2>
         <pre class="font--24"><code class="php" data-trim>
 $foo()['bar']()
+
 [$obj1, $obj2][0]->prop
+
 getStr(){0}
+
 $foo['bar']::$baz
+
 $foo::$bar::$baz
+
 $foo->bar()::baz()
+
 $foo()()
         </code></pre>
         <pre class="fragment font--24"><code class="php" data-trim>
