@@ -299,6 +299,231 @@ class Address implements AddressInterface {
       <section>
         <h1>#2</h1>
       </section>
+      <section data-transition="slide-in fade-out">
+        <pre class="font--20"><code class="php" data-trim>
+function compute_shipping($src, AddressInterface $dest) {
+  $distance = distance_between($src, $dest);
+
+  return $distance * .5; // 50 cents/mile
+}
+
+function distance_between(AddressInterface $src, AddressInterface $dest) {
+  // ...
+}
+
+$u_address = new Address(); // ...
+$user = new User(123, $u_address);
+
+$src = new Address(); // ...
+compute_shipping($src, $user->getAddress());
+        </code></pre>
+        <p class="fragment">What does distance_between() return?</p>
+        <aside class="notes">
+          <ul>
+            <li>Could have made that change before, but more obvious when typed</li>
+            <li>distance_between() seems to return number. int or float?</li>
+          </ul>
+        </aside>
+      </section>
+      <section data-transition="fade-in">
+        <pre class="font--18"><code class="php" data-trim>
+function compute_shipping(AddressInterface $src, AddressInterface $dest) : float {
+  $distance = distance_between($src, $dest);
+
+  return $distance * .5; // 50 cents/mile
+}
+
+function distance_between(AddressInterface $src, AddressInterface $dest) : int {
+  // ...
+}
+
+$u_address = new Address(); // ...
+$user = new User(123, $u_address);
+
+$src = new Address(); // ...
+compute_shipping($src, $user->getAddress());
+        </code></pre>
+        <aside class="notes">
+          <ul>
+            <li>Assume whole miles. Round up, because greedy.</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <p class="bigtext"><q>Everyone here owes<br />Andrea Faulds and Anthony Ferrara a drink</q></p>
+      </section>
+      <section>
+        <h2>New type specs in PHP 7</h2>
+        <ul class="fragment">
+          <li>int</li>
+          <li>float</li>
+          <li>string</li>
+          <li>bool</li>
+        </ul>
+        <aside class="notes">
+          <ul>
+            <li>No integer/boolean</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <h2>Full type list</h2>
+        <ul class="fragment">
+          <li>int</li>
+          <li>float</li>
+          <li>string</li>
+          <li>bool</li>
+          <li>array</li>
+          <li>callable</li>
+          <li>Any class name</li>
+        </ul>
+        <aside class="notes">
+          <ul>
+            <li>All usable as parameters or returns</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <pre class="font--24"><code class="php" data-trim>
+interface AddressInterface {
+  public function getStreet();
+  public function getCity();
+  public function getState();
+  public function getZip();
+}
+        </code></pre>
+        <p class="fragment">Is getStreet() a string or object?</p>
+        <aside class="notes">
+          <ul>
+            <li>Object with number, name, apartment?</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <pre class="font--24"><code class="php" data-trim>
+interface AddressInterface {
+  public function getStreet() : string;
+  public function getCity() : string;
+  public function getState() : string;
+  public function getZip() : string;
+}
+        </code></pre>
+        <pre class="fragment font--18"><code class="php" data-trim>
+class Address implements AddressInterface {
+  public function __construct(string $street, string $city, string $state, string $zip) {
+    // ...
+  }
+  // ...
+}
+        </code></pre>
+      </section>
+      <section>
+        <pre class="font--24"><code class="php" data-trim>
+$u_address = new Address('45 Hull St', 'Boston', 'MA', 02113);
+$user = new User(123, $u_address);
+
+$src = new Address('4455 Paradise Rd', 'Las Vegas', 'NV', 89169);
+compute_shipping($src, $user->getAddress());
+        </code></pre>
+        <aside class="notes">
+          <ul>
+            <li>Point out error. Becomes 1099 in Octal</li>
+            <li>Biggest dispute in PHP scalar typing</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <h2>Strict vs Weak mode</h2>
+        <p class="fragment">Weak by default</p>
+        <p class="fragment">* string -> int may E_NOTICE</p>
+        <aside class="notes">
+          <ul>
+            <li>Casts like we're used to</li>
+            <li>PHP used to auto-coercing, because web</li>
+            <li>Unsafe</li>
+            <li>String -> int notice if non-numeric.</li>
+            <li>Undermines type checking</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <h2>Strict mode</h2>
+        <p>Address.php</p>
+        <pre class="font--20"><code class="php" data-trim>
+declare(strict_types=1);
+
+class Address implements AddressInterface {
+  public function __construct(string $street, string $city, string $state, string $zip) {
+    // ...
+  }
+  public function getZip() : string {
+    return $this->zip;
+  }
+
+  // ...
+}
+        </code></pre>
+        <p class="fragment">Affects calls and returns <em>from</em> this file</p>
+        <aside class="notes">
+          <ul>
+            <li>If $this->zip not a string, TypeError thrown</li>
+            <li>Tooling can spot it!</li>
+            <li>Does not affect constructor!</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <h2>Strict mode</h2>
+        <p>setup.php</p>
+        <pre class="font--24"><code class="php" data-trim>
+declare(strict_types=1);
+
+$u_address = new Address('45 Hull St', 'Boston', 'MA', 02113);
+$user = new User(123, $u_address);
+
+$src = new Address('4455 Paradise Rd', 'Las Vegas', 'NV', 89169);
+compute_shipping($src, $user->getAddress());
+        </code></pre>
+        <p class="fragment">Affects calls and returns <em>from</em> this file</p>
+        <aside class="notes">
+          <ul>
+            <li>Will throw TypeError</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <h2>Casting in strict mode</h2>
+        <p>* int converts to float automatically</p>
+        <aside class="notes">
+          <ul>
+            <li>Otherwise, (cast) or redesign</li>
+            <li>Really, redesign</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <h2>Using strict types</h2>
+        <p class="fragment bigtext">90% of the time</p>
+        <p class="fragment bigtext">(Everywhere except Input)</p>
+        <aside class="notes">
+          <ul>
+            <li>Catches the most bugs</li>
+            <li>Pass data FROM IO to a typed function, weak, coerce</li>
+            <li>Get the most type safety</li>
+            <li>Drives good design; separate methods, predictable returns, etc.</li>
+          </ul>
+        </aside>
+      </section>
+      <section>
+        <p class="bigtext">Also, Documentation</p>
+        <aside class="notes">
+          <ul>
+            <li>"Good code is self-documenting"</li>
+            <li>Static type or you're a hypocrite</li>
+            <li>Static types can't go out of date like docblocs</li>
+          </ul>
+        </aside>
+      </section>
     </section>
     <section>
       <!-- Spaceship -->
