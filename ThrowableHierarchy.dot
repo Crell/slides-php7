@@ -1,0 +1,39 @@
+digraph G {
+  fontname = "Bitstream Vera Sans"
+  fontsize = 12
+  pagedir = "TL"
+  bgcolor="transparent"
+
+  node [
+    fontname = "Bitstream Vera Sans"
+    shape = "record"
+    style=filled
+    fillcolor=gray95
+  ]
+
+  edge [
+    fontname = "Bitstream Vera Sans"
+  ]
+
+  Throwable [
+    label = "{Throwable|+ getMessage : string\l+ getCode : int\l...\l}"
+  ]
+
+  Error [ label = "Error" ]
+  Exception [ label = "Exception" ]
+  ArithmeticError [ label = "ArithmeticError" ]
+  AssertionError [ label = "AssertionError" ]
+  DivisionByZeroError [ label = "DivisionByZeroError" ]
+  Error [ label = "Error" ]
+  ParseError [ label = "ParseError" ]
+  TypeError [ label = "TypeError" ]
+
+  Exception -> Throwable
+  Error -> Throwable
+
+  ArithmeticError->Error
+  AssertionError->Error
+  DivisionByZeroError->ArithmeticError
+  ParseError->Error
+  TypeError->Error
+}

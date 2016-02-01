@@ -661,7 +661,7 @@ $username = $submitted['username'] ?? $user->username() ?? 'Anonymous';
         <p class="bigtext fragment">CSPRNG!</p>
       </section>
       <section>
-        <p>Ask and ye shall receive&hellip;</p>
+        <p class="bigtext">Ask and ye shall receive&hellip;</p>
        <pre class="fragment font--24"><code class="php" data-trim>
 $junk = random_bytes(16);
 
@@ -870,7 +870,7 @@ catch (\ParseError $e) {
         </code></pre>
       </section>
       <section>
-        <div>Diagram of new class tree, including \Throwable</div>
+        <div><img src="assets/throwable-hierarchy.svg" alt="Throwable is at the root of all Errors and Exceptions" data-credit="Larry Garfield" /></div>
         <p class="fragment" style="text-decoration: line-through">E_FATAL, E_RECOVERABLE_ERROR, E_PARSE, E_COMPILE_ERROR</p>
       </section>
       <section>
