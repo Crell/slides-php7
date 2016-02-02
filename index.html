@@ -696,7 +696,7 @@ $val = random_int(1, 100);
         <h1>#6</h1>
       </section>
       <section>
-        <h2>Testing is hard</h2>
+        <h2>Mocking is hard</h2>
          <pre class="font--24"><code class="php" data-trim>
 $mock_repository = $this
   ->getMockBuilder(ThingieRepository::class)
@@ -711,10 +711,7 @@ $obj2 = $this->getMockBuilder(Thingie::class)
   ->getMock();
 $obj1 ->method('getVal')->willReturn('def');
 
-$map = [
-  [1, $obj1],
-  [2, $obj2],
-];
+$map = [ [1, $obj1], [2, $obj2] ];
 
 $mock_repository
   ->method('load')->will($this->returnValueMap($map));
@@ -748,8 +745,6 @@ $fake_repository = new class extends ThingieRepository {
             return 'def';
           }
         };
-      default:
-        return null;
     }
   }
 };
@@ -817,6 +812,7 @@ new class($logger) implements ServiceInterface {
         </aside>
       </section>
       <section>
+        <h2>PHP 5</h2>
         <pre class="font--24"><code class="php" data-trim>
 function doStuff(Request $r) {
   // ...
@@ -834,6 +830,7 @@ doStuff($u);
         </aside>
       </section>
       <section>
+        <h2>PHP 7</h2>
         <pre class="font--24"><code class="php" data-trim>
 function doStuff(Request $r) {
   // ...
