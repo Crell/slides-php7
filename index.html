@@ -110,6 +110,11 @@
     </section>
     <section>
       <img src="assets/php7-logo.svg" alt="PHP 7" data-credit="http://www.cowburn.info/2015/06/18/php7-logo/" />
+      <aside class="notes">
+        <ul>
+          <li>PHP 6 snuk into PHP 5 party dressed as 5.3, hasn't been seen since</li>
+        </ul>
+      </aside>
     </section>
     <section>
       <section>
@@ -368,7 +373,7 @@ compute_shipping($src, $user->getAddress());
       </section>
       <section>
         <h2>Full type list</h2>
-        <ul class="fragment">
+        <ul>
           <li>int</li>
           <li>float</li>
           <li>string</li>
@@ -422,7 +427,7 @@ class Address implements AddressInterface {
 $u_address = new Address('45 Hull St', 'Boston', 'MA', 02113);
 $user = new User(123, $u_address);
 
-$src = new Address('4455 Paradise Rd', 'Las Vegas', 'NV', 89169);
+$src = new Address('2211 N Elston Ave', 'Chicago', 'IL', 60614);
 compute_shipping($src, $user->getAddress());
         </code></pre>
         <aside class="notes">
@@ -481,7 +486,7 @@ declare(strict_types=1);
 $u_address = new Address('45 Hull St', 'Boston', 'MA', 02113);
 $user = new User(123, $u_address);
 
-$src = new Address('4455 Paradise Rd', 'Las Vegas', 'NV', 89169);
+$src = new Address('2211 N Elston Ave', 'Chicago', 'IL', 606014);
 compute_shipping($src, $user->getAddress());
         </code></pre>
         <p class="fragment">Affects calls and returns <em>from</em> this file</p>
@@ -523,6 +528,10 @@ compute_shipping($src, $user->getAddress());
             <li>Static types can't go out of date like docblocs</li>
           </ul>
         </aside>
+      </section>
+      <section>
+        <!-- BC image -->
+        <p class="bigtext">New reserved words!</p>
       </section>
     </section>
     <section>
@@ -613,7 +622,9 @@ $username = $username ? $username : 'Anonymous';
 $username = $username ?: 'Anonymous';
         </code></pre>
         <p class="fragment bigtext">But what if $username doesn't exist?</p>
-        <p class="fragment"><code>Notice: Undefined variable: username on line 3</code></p>
+        <pre class="fragment font--24" style="margin-top: 1em;"><code class="text" data-trim>
+Notice: Undefined variable: username on line 3
+        </code></pre>
       </section>
       <section>
         <pre class="font--20"><code class="php" data-trim>
@@ -688,6 +699,10 @@ $val = random_int(1, 100);
           <li>random_int()</li>
         </ul>
         <p id="security-wrong" class="fragment" data-classer="security-wrong" data-classer-class="bigdeal" style="margin-top: 1em;">You're Doing It Wrong!</p>
+      </section>
+      <section>
+        <!-- BC image -->
+        <p>Reserved function names: <code>random_bytes()</code>, <code>random_int()</code></p>
       </section>
     </section>
     <section>
@@ -849,20 +864,20 @@ catch (\TypeError $e) {
       <section>
         <pre class="font--24"><code class="php" data-trim>
 try {
-  nonexistant_function();
+  include 'buggy_file.php';
 }
-catch (\Error $e) {
-  print "The error was " . $e->getMessage();
+catch (\ParseError $e) {
+  $logger->error("That file is buggy!");
 }
         </code></pre>
       </section>
       <section>
         <pre class="font--24"><code class="php" data-trim>
 try {
-  include 'buggy_file.php';
+  nonexistant_function();
 }
-catch (\ParseError $e) {
-  $logger->error("That file is buggy!");
+catch (\Error $e) {
+  print "The error was " . $e->getMessage();
 }
         </code></pre>
       </section>
@@ -879,6 +894,10 @@ catch (\ParseError $e) {
             <li>Unlikely you can continue anyway.</li>
           </ul>
         </aside>
+      </section>
+      <section>
+        <!-- BC break -->
+        <p>New reserved class names</p>
       </section>
       <section>
         <h3>PHP 5</h3>
@@ -912,7 +931,7 @@ set_exception_handler(function($e) {
       </section>
       <section>
         <p class="bigtext">Assertions suck</p>
-        <pre class="font--20"><code class="php" data-trim>
+        <pre class="fragment font--20"><code class="php" data-trim>
 function doStuff(array $def) {
   assert(isset($def['key']) && isset($def['value']), 'Invalid def');
   // ...
@@ -1100,17 +1119,10 @@ Foo::$bar[1][2][3]()
         <h2>It's logical</h2>
         <pre class="font--24"><code class="php" data-trim>
 $foo()['bar']()
-
 [$obj1, $obj2][0]->prop
-
 getStr(){0}
-
 $foo['bar']::$baz
-
-$foo::$bar::$baz
-
 $foo->bar()::baz()
-
 $foo()()
         </code></pre>
         <pre class="fragment font--24"><code class="php" data-trim>
@@ -1122,6 +1134,11 @@ $foo()()
 (function() { ... })()
 ($obj->closure)()
         </code></pre>
+      </section>
+      <section>
+        <!-- BC break -->
+        <p>Complex cases change meaning</p>
+        <p class="fragment">When in doubt, use () or {}</p>
       </section>
     </section>
     <section>
