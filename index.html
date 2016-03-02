@@ -330,7 +330,7 @@ compute_shipping($src, $user->getAddress());
           </ul>
         </aside>
       </section>
-      <section data-transition="fade-in">
+      <section data-transition="fade-in slide-out">
         <pre class="font--18"><code class="php" data-trim>
 function compute_shipping(AddressInterface $src, AddressInterface $dest) : float {
   $distance = distance_between($src, $dest);
@@ -530,7 +530,8 @@ compute_shipping($src, $user->getAddress());
         </aside>
       </section>
       <section>
-        <!-- BC image -->
+        <h2>BC Warning!</h2>
+        <img src="assets/bc-caveman.jpg" align="BC Warning" data-credit="https://www.flickr.com/photos/alfer/1349385195" />
         <p class="bigtext">New reserved words!</p>
       </section>
     </section>
@@ -700,9 +701,16 @@ $val = random_int(1, 100);
         </ul>
         <p id="security-wrong" class="fragment" data-classer="security-wrong" data-classer-class="bigdeal" style="margin-top: 1em;">You're Doing It Wrong!</p>
       </section>
-      <section>
-        <!-- BC image -->
-        <p>Reserved function names: <code>random_bytes()</code>, <code>random_int()</code></p>
+      <section class="l-2up">
+        <h2>BC Warning!</h2>
+        <div>
+          <p>Reserved function names</p>
+          <ul>
+            <li><code>random_bytes()</code></li>
+            <li><code>random_int()</code></li>
+          </ul>
+        </div>
+        <div><img src="assets/bc-mammoth.jpg" alt="BC Warning" data-credit="https://www.flickr.com/photos/sabeth718/3621132155" /></div>
       </section>
     </section>
     <section>
@@ -896,8 +904,10 @@ catch (\Error $e) {
         </aside>
       </section>
       <section>
-        <!-- BC break -->
+        <h2>BC Warning!</h2>
+        <img src="assets/bc-lego-caveman.jpg" alt="BC Warning" width="70%" data-credit="https://www.flickr.com/photos/pasukaru76/5964727769" />
         <p>New reserved class names</p>
+        <p>Global exception handler</p>
       </section>
       <section>
         <h3>PHP 5</h3>
@@ -1136,7 +1146,8 @@ $foo()()
         </code></pre>
       </section>
       <section>
-        <!-- BC break -->
+        <h2>BC Break</h2>
+        <img src="assets/bc-flintstones.jpg" alt="BC Break" data-credit="hhttp://animatedviews.com/wp-content/uploads/2010/09/flintstone50.jpg" />
         <p>Complex cases change meaning</p>
         <p class="fragment">When in doubt, use () or {}</p>
       </section>
