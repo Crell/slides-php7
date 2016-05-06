@@ -603,9 +603,9 @@ usort($people, function (Person $a, Person $b) {
         <p id="fired" class="fragment" data-classer="fired" data-classer-class="bigdeal" style="margin-top: 1em;">You're Fired!</p>
       </section>
       <section>
-        <pre class="font--18"><code class="php" data-trim>
+        <pre class="font--20"><code class="php" data-trim>
 usort($people, function (Person $a, Person $b) {
-  return [$a->lastName(), $a->firstName()] <=> [$b->lastName(), $b->firstName()];
+ return [$a->lastName(), $a->firstName()] <=> [$b->lastName(), $b->firstName()];
 });
         </code></pre>
       </section>
@@ -660,7 +660,7 @@ $username = $submitted['username'] ?? $user->username() ?? 'Anonymous';
         <h2>Don't we have this already?</h2>
         <ul>
           <li class="fragment"><code>rand()</code> isn't really random</li>
-          <li class="fragment"><code>mcrypt()</code> isn't really random</li>
+          <li class="fragment"><code>mcrypt()</code> isn't really random (also unsupported)</li>
           <li class="fragment"><code>fread(fopen('/dev/urandom'), 16)</code> isn't portable</li>
           <li class="fragment">openssl is hard to use</li>
         </ul>
@@ -682,7 +682,7 @@ $val = random_int(1, 100);
         <div class="fragment" style="margin-top: 1em;">
           <h3>On PHP 5?</h3>
           <p><code>composer require paragonie/random_compat</code></p>
-          <p class="fragment"><a href="https://github.com/paragonie/random_compat">https://github.com/paragonie/random_compat</a></p>
+          <a href="https://github.com/paragonie/random_compat">https://github.com/paragonie/random_compat</a>
         </div>
         <aside class="notes">
           <ul>
@@ -845,7 +845,7 @@ $u = new User();
 
 doStuff($u);
         </code></pre>
-        <p class="fragment"><code>Catchable fatal error: Argument 1 passed to doStuff() must be an instance of Request, instance of User given</code></p>
+        <p class="fragment"><code>Catchable fatal error: Argument 1 passed to doStuff() must be an instance of Request,<br />instance of User given</code></p>
         <aside class="notes">
           <ul>
             <li>Why catchable if I can't catch?</li>
@@ -993,7 +993,7 @@ function doStuff(array $def) {
         <h1>#9</h1>
       </section>
       <section>
-        <h3>You're not still doing iterators the hard way,<br/>are you?</h3>
+        <h3>You're not still doing iterators<br/>the hard way, are you?</h3>
       </section>
       <section>
         <pre class="font--18"><code class="php" data-trim>
