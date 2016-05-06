@@ -1592,19 +1592,19 @@ body {
  *********************************************/
 /* line 7, ../sass/_theme.scss */
 body.light {
-  background: #dbe8ec;
-  background-color: #dbe8ec;
+  background: #00b4ff;
+  background-color: #00b4ff;
 }
 
 /* line 12, ../sass/_theme.scss */
 body.white {
-  background: #dbe8ec;
+  background: #00b4ff;
   background-color: white;
 }
 
 /* line 17, ../sass/_theme.scss */
 body.dark {
-  background: #dbe8ec;
+  background: #00b4ff;
   background-color: #344041;
 }
 
@@ -1661,7 +1661,7 @@ body.dark {
 .dark .reveal h4,
 .dark .reveal h5,
 .dark .reveal h6 {
-  color: #dbe8ec;
+  color: #00b4ff;
 }
 
 /* line 73, ../sass/_theme.scss */
@@ -1670,7 +1670,7 @@ body.dark {
 .reveal h2,
 .reveal h3 {
   margin: 0.15em 0 0.35em;
-  font-family: "proxima-nova", sans-serif;
+  font-family: "open-sans", sans-serif;
   font-weight: 600;
   line-height: 1;
   letter-spacing: normal;
@@ -1807,9 +1807,9 @@ body.dark {
   font-style: italic;
   background: none;
   box-shadow: none;
-  color: #00b4ff;
-  border-top: 1px dotted #00b4ff;
-  border-bottom: 1px dotted #00b4ff;
+  color: #11a9a1;
+  border-top: 1px dotted #11a9a1;
+  border-bottom: 1px dotted #11a9a1;
 }
 
 /* line 193, ../sass/_theme.scss */
@@ -1896,7 +1896,7 @@ body.dark {
  *********************************************/
 /* line 264, ../sass/_theme.scss */
 .reveal a {
-  color: #00b4ff;
+  color: #11a9a1;
   text-decoration: none;
   -webkit-transition: color .15s ease;
   -moz-transition: color .15s ease;
@@ -1905,7 +1905,7 @@ body.dark {
 
 /* line 272, ../sass/_theme.scss */
 .reveal a:hover {
-  color: #0090cc;
+  color: #0c7b75;
   text-shadow: none;
   border: none;
 }
@@ -1913,7 +1913,7 @@ body.dark {
 /* line 279, ../sass/_theme.scss */
 .reveal .roll span:after {
   color: #fff;
-  background: #007eb3;
+  background: #0a635f;
 }
 
 /*********************************************
@@ -1937,7 +1937,7 @@ body.dark {
 /* line 303, ../sass/_theme.scss */
 .reveal a:hover img {
   background: rgba(255, 255, 255, 0.2);
-  border-color: #00b4ff;
+  border-color: #11a9a1;
   box-shadow: none;
 }
 
@@ -1947,45 +1947,45 @@ body.dark {
 /* line 315, ../sass/_theme.scss */
 .reveal .controls div.navigate-left,
 .reveal .controls div.navigate-left.enabled {
-  border-right-color: #00b4ff;
+  border-right-color: #11a9a1;
 }
 
 /* line 320, ../sass/_theme.scss */
 .reveal .controls div.navigate-right,
 .reveal .controls div.navigate-right.enabled {
-  border-left-color: #00b4ff;
+  border-left-color: #11a9a1;
 }
 
 /* line 325, ../sass/_theme.scss */
 .reveal .controls div.navigate-up,
 .reveal .controls div.navigate-up.enabled {
-  border-bottom-color: #00b4ff;
+  border-bottom-color: #11a9a1;
 }
 
 /* line 330, ../sass/_theme.scss */
 .reveal .controls div.navigate-down,
 .reveal .controls div.navigate-down.enabled {
-  border-top-color: #00b4ff;
+  border-top-color: #11a9a1;
 }
 
 /* line 335, ../sass/_theme.scss */
 .reveal .controls div.navigate-left.enabled:hover {
-  border-right-color: #0090cc;
+  border-right-color: #0c7b75;
 }
 
 /* line 339, ../sass/_theme.scss */
 .reveal .controls div.navigate-right.enabled:hover {
-  border-left-color: #0090cc;
+  border-left-color: #0c7b75;
 }
 
 /* line 343, ../sass/_theme.scss */
 .reveal .controls div.navigate-up.enabled:hover {
-  border-bottom-color: #0090cc;
+  border-bottom-color: #0c7b75;
 }
 
 /* line 347, ../sass/_theme.scss */
 .reveal .controls div.navigate-down.enabled:hover {
-  border-top-color: #0090cc;
+  border-top-color: #0c7b75;
 }
 
 /*********************************************
@@ -1998,7 +1998,7 @@ body.dark {
 
 /* line 359, ../sass/_theme.scss */
 .reveal .progress span {
-  background: #00b4ff;
+  background: #11a9a1;
   -webkit-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
   -moz-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
   transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
@@ -2009,7 +2009,7 @@ body.dark {
  *********************************************/
 /* line 370, ../sass/_theme.scss */
 .reveal .slide-number {
-  color: #00b4ff;
+  color: #11a9a1;
 }
 
 /**
@@ -2088,7 +2088,7 @@ body.dark {
   display: block;
   padding: 0.5em;
   background: #3f4e4f;
-  color: #dbe8ec;
+  color: #00b4ff;
 }
 /* line 83, ../sass/_code.scss */
 .dark .reveal .no-container > .hljs {
@@ -2204,7 +2204,7 @@ body.dark {
 .light .reveal .hljs {
   display: block;
   padding: 0.5em;
-  background: #ecf3f5;
+  background: #1abcff;
   color: #344041;
 }
 /* line 201, ../sass/_code.scss */
@@ -2435,30 +2435,32 @@ body.dark {
 
 /* line 44, ../sass/_general.scss */
 .dark .reveal {
-  color: #dbe8ec;
+  color: #00b4ff;
 }
 /* line 47, ../sass/_general.scss */
 .dark .reveal .logo:after {
   background: url(../imgs/platform-logo-1c-white.svg);
+  background-repeat: no-repeat;
 }
 
-/* line 52, ../sass/_general.scss */
+/* line 53, ../sass/_general.scss */
 .white .reveal,
 .light .reveal {
   color: #344041;
 }
-/* line 56, ../sass/_general.scss */
+/* line 57, ../sass/_general.scss */
 .white .reveal .logo:after,
 .light .reveal .logo:after {
   background: url(../imgs/platform-logo-2c.svg);
+  background-repeat: no-repeat;
 }
 
-/* line 61, ../sass/_general.scss */
+/* line 63, ../sass/_general.scss */
 .l-2up > div {
   margin-bottom: 15px;
 }
 @media (min-width: 600px) {
-  /* line 61, ../sass/_general.scss */
+  /* line 63, ../sass/_general.scss */
   .l-2up > div {
     width: 48%;
     margin-bottom: 0;
@@ -2466,24 +2468,24 @@ body.dark {
     float: left;
     font-size: 0.85em;
   }
-  /* line 70, ../sass/_general.scss */
+  /* line 72, ../sass/_general.scss */
   .l-2up > div:nth-of-type(1n) {
     padding-right: 2%;
     padding-left: 0;
   }
-  /* line 75, ../sass/_general.scss */
+  /* line 77, ../sass/_general.scss */
   .l-2up > div:nth-of-type(2n) {
     padding-right: 0;
     padding-left: 2%;
   }
 }
 
-/* line 82, ../sass/_general.scss */
+/* line 84, ../sass/_general.scss */
 .l-3up > div {
   margin-bottom: 15px;
 }
 @media (min-width: 750px) {
-  /* line 82, ../sass/_general.scss */
+  /* line 84, ../sass/_general.scss */
   .l-3up > div {
     width: 31%;
     margin-bottom: 0;
@@ -2491,29 +2493,29 @@ body.dark {
     float: left;
     font-size: 0.7em;
   }
-  /* line 92, ../sass/_general.scss */
+  /* line 94, ../sass/_general.scss */
   .l-3up > div:nth-of-type(1n) {
     padding-right: 2%;
     padding-left: 0;
   }
-  /* line 97, ../sass/_general.scss */
+  /* line 99, ../sass/_general.scss */
   .l-3up > div:nth-of-type(2n) {
     padding-right: 1%;
     padding-left: 1%;
   }
-  /* line 102, ../sass/_general.scss */
+  /* line 104, ../sass/_general.scss */
   .l-3up > div:nth-of-type(3n) {
     padding-right: 0;
     padding-left: 2%;
   }
 }
 
-/* line 109, ../sass/_general.scss */
+/* line 111, ../sass/_general.scss */
 .l-4up > div {
   margin-bottom: 15px;
 }
 @media (min-width: 900px) {
-  /* line 109, ../sass/_general.scss */
+  /* line 111, ../sass/_general.scss */
   .l-4up > div {
     width: 23%;
     margin-bottom: 0;
@@ -2521,29 +2523,29 @@ body.dark {
     float: left;
     font-size: 0.5em;
   }
-  /* line 119, ../sass/_general.scss */
+  /* line 121, ../sass/_general.scss */
   .l-4up > div:nth-of-type(1n) {
     padding-right: 2%;
     padding-left: 0;
   }
-  /* line 124, ../sass/_general.scss */
+  /* line 126, ../sass/_general.scss */
   .l-4up > div:nth-of-type(2n) {
     padding-right: 1%;
     padding-left: 1%;
   }
-  /* line 129, ../sass/_general.scss */
+  /* line 131, ../sass/_general.scss */
   .l-4up > div:nth-of-type(3n) {
     padding-right: 1%;
     padding-left: 1%;
   }
-  /* line 134, ../sass/_general.scss */
+  /* line 136, ../sass/_general.scss */
   .l-4up > div:nth-of-type(4n) {
     padding-right: 0;
     padding-left: 2%;
   }
 }
 
-/* line 142, ../sass/_general.scss */
+/* line 144, ../sass/_general.scss */
 .reveal .attribute {
   font-size: 0.5em;
   color: #424041;
@@ -2554,12 +2556,12 @@ body.dark {
 /*********************************************
  * AD HOC CUSTOM CLASSES (Originally by Larry)
  *********************************************/
-/* line 153, ../sass/_general.scss */
+/* line 155, ../sass/_general.scss */
 p.bigtext {
   font-size: 150%;
 }
 
-/* line 158, ../sass/_general.scss */
+/* line 160, ../sass/_general.scss */
 .reveal ul + p, .reveal div + p {
   margin-top: 1em;
 }
