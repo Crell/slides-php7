@@ -303,3 +303,12 @@ $user = new User(123, $u_address);
 $src = new Address(); // ...
 
 compute_shipping($src, $user);
+
+
+function return_to_sender() : void {
+  // Do stuff
+  // ...
+  return; // Legal
+  return null; // Not OK
+  return 1; // Not even a little OK
+}
