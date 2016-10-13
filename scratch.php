@@ -312,3 +312,31 @@ function return_to_sender() : void {
   return null; // Not OK
   return 1; // Not even a little OK
 }
+
+function hug_friends(array $friends) {
+  foreach ($friends as $friend) {
+    hug($friend);
+  }
+}
+
+function hug_friends(\Traversable $friends) {
+  foreach ($friends as $friend) {
+    hug($friend);
+  }
+}
+
+/**
+ * @param array|\Traversable $friends
+ */
+function hug_friends($friends) {
+  foreach ($friends as $friend) {
+    hug($friend);
+  }
+}
+
+function hug_friends(iterable $friends) {
+  foreach ($friends as $friend) {
+    hug($friend);
+  }
+}
+

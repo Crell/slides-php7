@@ -1017,98 +1017,72 @@ function doStuff(array $def) {
       </section>
     </section>
     <section>
-      <!-- Generators -->
+      <!-- Iterable -->
       <section>
         <h1>#9</h1>
       </section>
       <section>
-        <h3>You're not still doing iterators<br/>the hard way, are you?</h3>
+        <h3><code>Iterate</code> this!</h3>
       </section>
       <section>
-        <pre class="font--18"><code class="php" data-trim>
-class RemoteSource implements Iterator {
-  protected $key;
-
-  protected $current;
-
-  protected $client;
-
-  public function __construct(Client $client) {
-    $this->client = $client;
-    $this->key = 0;
-  }
-
-  public function current() {
-    return $this->current;
-  }
-
-  public function next() {
-    $this->current = $this->client->get('http://api.com/entry/' . $this->key);
-    $this->key++;
-  }
-
-  public function key() {
-    return $this->key;
-  }
-
-  public function valid() {
-    return (bool)$this->current;
-  }
-
-  public function rewind() {
-    throw new Exception();
-  }
-}
-        </code></pre>
-      </section>
-      <section>
+        <h2>PSR-8 FTW!</h2>
         <pre class="font--24"><code class="php" data-trim>
-$result = $db->query(...);
-
-$iterator = new AppendIterator();
-$iterator->append(new RemoteSource($client));
-$iterator->append($result);
-
-foreach ($iterator as $item) {
-  // Do something.
+function hug_friends(array $friends) {
+  foreach ($friends as $friend) {
+    hug($friend);
+  }
 }
         </code></pre>
+        <pre class="font--24 fragment"><code class="php" data-trim>
+function hug_friends(\Traversable $friends) {
+  foreach ($friends as $friend) {
+    hug($friend);
+  }
+}
+        </code></pre>
+        <p class="bigtext fragment">There can be only one!</p>
+        <aside class="notes">
+          <ul>
+            <li>Too many friend objects for an array</li>
+          </ul>
+        </aside>
       </section>
       <section>
-        <h3>In PHP 7...</h3>
-        <pre class="font--20"><code class="php" data-trim>
-function getRemoteValues($client) {
-  $key = 0;
-  while ($val = $client->get('http://api.com/entry/' . $key++)) {
-    yield $val;
+        <h3>Your friends are sad :-(</h3>
+        <pre class="font--24"><code class="php" data-trim>
+/**
+ * @param array|\Traversable $friends
+ */
+function hug_friends($friends) {
+  foreach ($friends as $friend) {
+    hug($friend);
   }
 }
-
-function getLocalValues() {
-  foreach (db()->query(...) as $record) {
-    yield $record;
-  }
-}
-
-function getValues($client) {
-  // This is the new part.
-  yield from getRemoteValues($client);
-  yield from getLocalValues();
-  return 'done';
-}
-
-$values = getValues($client);
-foreach ($values as $item) {
-  // Do stuff
-}
-print $val->getReturn() . PHP_EOL;
         </code></pre>
         <aside class="notes">
           <ul>
-            <li>"yield from" useful for aggregating lists</li>
-            <li>Mostly for coroutines (Icicle.io)</li>
+            <li>Didn't we already say not to trust docblocks?</li>
           </ul>
         </aside>
+      </section>
+      <section>
+        <h3>PHP 7.1 makes friends happy</h3>
+        <pre class="font--24"><code class="php" data-trim>
+function hug_friends(iterable $friends) : iterable {
+  foreach ($friends as $friend) {
+    hug($friend);
+  }
+  return $friends;
+}
+        </code></pre>
+        <pre class="font--24 fragment"><code class="php" data-trim>
+is_iterable([1, 2, 3]); // true
+is_iterable(new ArrayIterator([1, 2, 3])); // true
+is_iterable((function () { yield 1; })()); // true
+is_iterable(1); // false
+is_iterable(new stdClass()); // false
+        </code></pre>
+        <p class="fragment"><code>iterable</code> => <code>foreach()</code>-able</p>
       </section>
     </section>
     <section>
@@ -1257,26 +1231,6 @@ $foo()()
     <section>
       <img src="assets/php7-logo.svg" alt="PHP 7" data-credit="http://www.cowburn.info/2015/06/18/php7-logo/" />
     </section>
-
-    <div style="display:none">
-      Problem-solution style.
-
-      Scalar types
-      Return types
-
-      Spaceship operator
-      Null coalesce
-      CSPRING
-
-      Anonymous classes
-      Errors
-      Expectations (assertions that work)
-
-      Generator improvements
-      Uniform variable syntax
-
-      Speed
-    </div>
 
     <section id="final">
       <h2>Larry Garfield</h2>
