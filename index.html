@@ -75,6 +75,12 @@
       width: 150px;
     }
 
+    p.fullscreen-credit {
+      margin-top: 90%;
+      font-size: small;
+    }
+
+
   </style>
 
 </head>
@@ -88,7 +94,7 @@
   <div class="slides">
 
     <section>
-      <h1>PHP 7<span class="fragment">[.1]</span></h1>
+      <h1>PHP 7<span class="fragment">[.2]</span></h1>
       <h2>The New New PHP</h2>
       <p>
         <small>Presented by <a href="http://www.garfieldtech.com/">Larry Garfield</a> (<a href="http://twitter.com/Crell">@Crell</a>)</small>
@@ -101,9 +107,8 @@
       </div>
       <div>
         <ul style="text-wrap: none">
-          <li>Director of Runtimes and Integrations, <a href="http://www.platform.sh/">Platform.sh</a></li>
-          <li style="margin-top: 1em;">Drupal 8 Web Services Lead</li>
-          <li style="margin-top: 1em;">Drupal Representative, <a href="http://www.php-fig.org/">PHP-FIG</a></li>
+          <li>Director of DX, <a href="http://www.platform.sh/">Platform.sh</a></li>
+          <li style="margin-top: 1em;"><a href="http://www.php-fig.org/">PHP-FIG</a> Core Committee</li>
           <li style="margin-top: 1em;"><code>implements Huggable</code></li>
         </ul>
       </div>
@@ -344,9 +349,9 @@ class UserRepository {
 function return_to_sender() : void {
   // Do stuff
   // ...
-  return; // Legal
+  return;      // Legal
   return null; // Not OK
-  return 1; // Not even a little OK
+  return 1;    // Not even a little OK
 }
         </code></pre>
       </section>
@@ -432,11 +437,13 @@ compute_shipping($src, $user->getAddress());
           <li>bool</li>
           <li>array</li>
           <li>callable</li>
+          <li>object</li>
           <li>Any class name</li>
         </ul>
         <aside class="notes">
           <ul>
             <li>All usable as parameters or returns</li>
+            <li>object new in PHP 7.2</li>
           </ul>
         </aside>
       </section>
@@ -476,15 +483,15 @@ class Address implements AddressInterface {
       </section>
       <section>
         <pre class="font--24"><code class="php" data-trim>
-$u_address = new Address('45 Hull St', 'Boston', 'MA', 02113);
+$u_address = new Address('45 Hull St', 'Boston', 'MA', 02215);
 $user = new User(123, $u_address);
 
-$src = new Address('2211 N Elston Ave', 'Chicago', 'IL', 60614);
+$src = new Address('1060 W Addison St', 'Chicago', 'IL', 60613);
 compute_shipping($src, $user->getAddress());
         </code></pre>
         <aside class="notes">
           <ul>
-            <li>Point out error. Becomes 1099 in Octal</li>
+            <li>Point out error. Becomes 1165 in Octal</li>
             <li>Biggest dispute in PHP scalar typing</li>
           </ul>
         </aside>
@@ -535,10 +542,10 @@ class Address implements AddressInterface {
         <pre class="font--24"><code class="php" data-trim>
 declare(strict_types=1);
 
-$u_address = new Address('45 Hull St', 'Boston', 'MA', 02113);
+$u_address = new Address('4 Yawkey Way', 'Boston', 'MA', 02215);
 $user = new User(123, $u_address);
 
-$src = new Address('2211 N Elston Ave', 'Chicago', 'IL', 606014);
+$src = new Address('1060 W Addison St', 'Chicago', 'IL', 60613);
 compute_shipping($src, $user->getAddress());
         </code></pre>
         <p class="fragment">Affects calls and returns <em>from</em> this file</p>
@@ -1184,7 +1191,7 @@ $foo()()
         <img src="assets/goes-to-11.jpg" alt="11" data-credit="https://twitter.com/it_goes_to_11" />
       </section>
       <section data-background="assets/cheetah-running.jpg" data-credit="https://www.flickr.com/photos/martin_heigan/4544138976/">
-      </section>
+        <p class="fullscreen-credit">(Credit: <a href="https://www.flickr.com/photos/martin_heigan/4544138976/">https://www.flickr.com/photos/martin_heigan/4544138976/</a>)</p>      </section>
       <section data-background="assets/pocket-protector.jpg">
         <aside class="notes">
           <ul>
@@ -1275,7 +1282,7 @@ $foo()()
 
     <section id="final">
       <h2>Larry Garfield</h2>
-      <p>Director of Runtimes and Integrations <a href="http://www.platform.sh/">Platform.sh</a></p>
+      <p>Director of Developer Experience, <a href="http://www.platform.sh/">Platform.sh</a></p>
       <p>Continuous Deployment Cloud Hosting</p>
       <p>Stalk us at <a href="http://twitter.com/Platformsh">@PlatformSH</a></p>
 
