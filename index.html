@@ -1248,32 +1248,120 @@ $foo()()
     </section>
     <section>
       <section>
-        <p class="bigtext"><q>But I'm scared of .0 releases!</q></p>
-      </section>
-      <section>
-        <ul class="project-list">
-          <li><img src="assets/projects/drupal-8-logo.svg" alt="Drupal 8" /></li>
-          <li><img src="assets/projects/symfony-logo-vertical.svg" alt="Symfony2 and 3" /></li>
-          <li><img src="assets/projects/zf2-logo.svg" alt="Zend Framework 2 and 3" /></li>
-          <li><img src="assets/projects/laravel-l-slant.png" alt="Larvel" /></li>
-          <li><img src="assets/projects/yii-logo.png" alt="Yii framework" /></li>
-          <li><img src="assets/projects/magento-logo.png" alt="Magento" /></li>
-          <li><img src="assets/projects/slim-logo.png" alt="Slim" /></li>
-          <li><img src="assets/projects/wordpress-logo-stacked.png" alt="Wordpress" /></li>
-          <li><img src="assets/projects/cake-logo.png" alt="Cake PHP 3" /></li>
-          <li><img src="assets/projects/doctrineorm.jpg" alt="Doctrine" /></li>
-          <li><img src="assets/projects/phpmyadmin-logo.png" alt="phpMyAdmin" /></li>
-        </ul>
+        <p class="bigtext"><q>But I have legacy code!</q></p>
         <aside class="notes">
           <ul>
-            <li>Last minute delay in PHP 7 release due to engine bugs Drupal 8 found in testing.</li>
+            <li>Most changes easy to spot with linter or fatal errors</li>
           </ul>
         </aside>
       </section>
       <section>
+        <p class="bigtext">You have tests, right...?</p>
+      </section>
+      <section>
+        <h3>Tooling to the rescue</h3>
+        <ol>
+          <li class="fragment">Get <code><a href="https://github.com/squizlabs/PHP_CodeSniffer">https://github.com/squizlabs/PHP_CodeSniffer</a></code></li>
+          <li class="fragment">Get <code><a href="https://github.com/wimg/PHPCompatibility">https://github.com/wimg/PHPCompatibility</a></code></li>
+          <li class="fragment"><code>vendor/bin/phpcs --standard=PHPCompatibility .</code></li>
+          <li class="fragment">Buy Wim Goden</a> (<a href="https://twitter.com/wimgtr">@wimgtr</a>) a <code>$beverage</code></li>
+          <li class="fragment">Profit!1!eleven!</li>
+        </ol>
+      </section>
+      <section>
+          <p>oldAndBusted.php</p>
+          <pre class="font--24"><code class="php" data-trim>
+function random_int()
+{
+    return rand();
+}
+
+class Error {}
+
+$a = [1, 2, 3];
+$b = ['a', 'b', 'c'];
+
+print $$b[1];
+          </code></pre>
+      </section>
+      <section>
+        <p>composer.json</p>
+        <pre class="font--24"><code class="json" data-trim>
+{
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^2.2 || ^3.0.2",
+        "wimg/php-compatibility": "*",
+        "DealerDirect/phpcodesniffer-composer-installer": "^0.4.3"
+    },
+    "prefer-stable" : true
+}
+          </code></pre>
+      </section>
+      <section>
+          <p>Profit</p>
+          <pre class="font--18"><code class="shell" data-trim>
+$ vendor/bin/phpcs --standard=PHPCompatibility oldAndBusted.php
+
+FILE: /home/crell/temp/phptest/oldAndBusted.php
+---------------------------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+---------------------------------------------------------------------------------------
+ 11 | ERROR | Indirect access to variables, properties and methods will be evaluated
+    |       | strictly in left-to-right order since PHP 7.0. Use curly braces to
+    |       | remove ambiguity.
+---------------------------------------------------------------------------------------
+
+Time: 60ms; Memory: 6Mb
+          </code></pre>
+        </section>
+      <section>
+        <h2>Caveats</h2>
+        <ul>
+          <li class="fragment">Large directories can be slow</li>
+          <li class="fragment">Can only test up to the installed version</li>
+          <li class="fragment">Static analysis can't catch everything</li>
+        </ul>
+        <p class="fragment bigtext">Tools can do 80% of the work</p>
+        <aside class="notes">
+          <ul>
+            <li>Humans have to do the other 20%</li>
+          </ul>
+        </aside>
+      </section>
+    </section>
+    <section>
+      <section>
+        <h3>The market is already there</h3>
+      </section>
+      <section>
         <p class="bigtext"><a href="http://phpversions.info/">http://phpversions.info/</a></p>
-        <p class="bigtext">PHP 7-ready hosts: <span class="fragment" data-countup="1" data-countup-step="1">48</span> <span class="fragment"> and counting</span></p>
+        <p class="bigtext">PHP 7.2-ready hosts: <span class="fragment" data-countup="1" data-countup-step="1">22</span> <span class="fragment"> and counting</span></p>
         <p class="bigtext fragment">(Yes, <a href="http://www.platform.sh/">Platform.sh</a> is one of them!)</p>
+      </section>
+      <section>
+        <h2>Require PHP 7.1.x</h2>
+        <ul class="project-list">
+          <li><img src="assets/projects/symfony-logo-vertical.svg" alt="Symfony 4" /></li>
+          <li><img src="assets/projects/laravel-l-slant.png" alt="Larvel" /></li>
+          <li><img src="assets/projects/doctrineorm.jpg" alt="Doctrine" /></li>
+          <li><img src="assets/projects/phpmyadmin-logo.png" alt="phpMyAdmin" /></li>
+          <li><img src="assets/projects/zf-logo-mark.png" alt="Zend Framework new packages" /></li>
+        </ul>
+        <h2>Require PHP 7.0.x</h2>
+        <ul class="project-list">
+          <li><img src="assets/projects/magento-logo.png" alt="Magento" /></li>
+        </ul>
+      </section>
+      <section>
+        <h3>Time is running out...</h3>
+        <img src="assets/php-release-schedule-2018-05.png" alt="PHP 7.0 and earlier lose all support this year." />
+        <aside class="notes">
+          <ul>
+            <li>You have 6 months until only 7.1 and later get any support at all.</li>
+            <li>If you care about security at all, upgrade now.</li>
+            <Li>Irresponsible to run on, or support, PHP < 7.</Li>
+          </ul>
+        </aside>
       </section>
     </section>
     <section>
